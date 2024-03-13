@@ -1,10 +1,16 @@
 package com.application.hw2
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
@@ -65,5 +71,43 @@ class FormActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+
+
+
+    }
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        val linearLayout = findViewById<LinearLayout>(R.id.gradient)
+        val view = findViewById<View>(R.id.colorView)
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+// Получаем размеры и позиции
+        val viewLeft = location[0]
+        val viewWidth = view.width
+        val v1 = viewLeft+viewWidth/2
+
+
+        val w = linearLayout.width;
+        val startColor = Color.parseColor("#FFD78C") // Оранжевый
+        val endColor = Color.parseColor("#CD96FF")
+        Log.d("color",colorToRgbString(interpolateColor(startColor, endColor,
+            (v1/w).toFloat()
+        )))
+    }
+    fun pointBetweenColors(from: Float, to: Float, percent: Float): Float =
+        from + percent * (to - from)
+
+    fun interpolateColor(color1: Int, color2: Int, fraction: Float): Int {
+        val a = (Color.alpha(color1) * (1 - fraction) + Color.alpha(color2) * fraction).toInt()
+        val r = (Color.red(color1) * (1 - fraction) + Color.red(color2) * fraction).toInt()
+        val g = (Color.green(color1) * (1 - fraction) + Color.green(color2) * fraction).toInt()
+        val b = (Color.blue(color1) * (1 - fraction) + Color.blue(color2) * fraction).toInt()
+        return Color.argb(a, r, g, b)
+    }
+    fun colorToRgbString(color: Int): String {
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+        return "RGB: ($red, $green, $blue)"
     }
 }

@@ -194,14 +194,15 @@
         <HorizontalScrollView
             android:id="@+id/scrollView"
             android:layout_width="184dp"
-            android:layout_height="50dp"
-            android:background="@drawable/gradient_orange_to_purple">
+            android:layout_height="50dp">
 
             <LinearLayout
+                android:id="@+id/gradient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/gradient_orange_to_purple">
 
                 <View
                     android:id="@+id/colorView"
