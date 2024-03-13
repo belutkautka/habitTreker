@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.forEach
 import com.application.hw2.model.HabitModel
 
 class FormActivity : AppCompatActivity() {
@@ -39,6 +40,12 @@ class FormActivity : AppCompatActivity() {
             count.text = Editable.Factory.getInstance().newEditable(changedHabit.count.toString())
             period.text = Editable.Factory.getInstance().newEditable(changedHabit.periodicity)
             submitButton.text = "Сохранить изменения"
+            typeGroup.forEach { view ->
+                if (view is RadioButton && view.text == changedHabit.type) {
+                    view.isChecked = true
+                    return@forEach
+                }
+            }
         } else {
             submitButton.text = "Добавить"
         }
