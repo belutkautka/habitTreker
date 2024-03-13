@@ -189,8 +189,15 @@
                     android:layout_weight="1"
                     android:text="Другое"/>
             </RadioGroup>
-
         </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:background="@drawable/gradient_orange_to_purple">
+        </ScrollView>
+
         <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
