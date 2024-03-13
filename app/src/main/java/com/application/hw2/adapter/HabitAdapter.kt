@@ -1,16 +1,20 @@
 package com.application.hw2.adapter
 
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.application.hw2.FormActivity
+import com.application.hw2.MainActivity
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 import com.application.hw2.model.HabitModel
 
-class HabitAdapter : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
+class HabitAdapter(private val context: Context) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
-    var habitList = emptyList<HabitModel>()
-
+    var habitList = ArrayList<HabitModel>()
     class HabitViewHolder(val binding: ItemHabitLayoutBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
@@ -32,5 +36,13 @@ class HabitAdapter : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
         holder.binding.description.text = habitList[position].description
         holder.binding.type.text =  habitList[position].type
         holder.binding.period.text = habitList[position].period
+        holder.binding.priority.text = habitList[position].getStars()
+        habitList[position].position = position
+        Log.d(position.toString(), "хммммм")
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, FormActivity::class.java)
+            intent.putExtra("HABIT_CHANGE", habitList[position])
+            context.startActivity(intent)
+        }
     }
 }
