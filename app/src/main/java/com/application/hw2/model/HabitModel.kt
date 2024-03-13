@@ -1,5 +1,6 @@
 package com.application.hw2.model
 
+import android.graphics.Color
 import java.io.Serializable
 
 data class HabitModel(
@@ -15,6 +16,7 @@ data class HabitModel(
         get() = convertToPeriod()
     var exceptionsNumbers = intArrayOf(2, 3, 4)
     var position: Int = 0;
+    var color: Int = Color.WHITE;
 
     private fun convertToPeriod(): String {
         if (count in exceptionsNumbers) {

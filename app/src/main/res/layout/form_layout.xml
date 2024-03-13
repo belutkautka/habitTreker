@@ -190,7 +190,11 @@
                     android:text="Другое"/>
             </RadioGroup>
         </LinearLayout>
-
+        <View
+            android:id="@+id/currentColor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
         <HorizontalScrollView
             android:id="@+id/scrollView"
             android:layout_width="184dp"

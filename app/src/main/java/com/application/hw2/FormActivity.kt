@@ -1,12 +1,10 @@
 package com.application.hw2
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -27,6 +25,7 @@ class FormActivity : AppCompatActivity() {
         val description = findViewById<EditText>(R.id.editDescription)
         val priority = findViewById<Spinner>(R.id.editPriotity)
         val typeGroup = findViewById<RadioGroup>(R.id.radioGroup)
+        val curentColor = findViewById<View>(R.id.currentColor)
         var type = "Учеба"
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
@@ -52,6 +51,7 @@ class FormActivity : AppCompatActivity() {
                     return@forEach
                 }
             }
+            curentColor.setBackgroundColor(changedHabit.color)
         } else {
             submitButton.text = "Добавить"
         }
@@ -63,6 +63,7 @@ class FormActivity : AppCompatActivity() {
                     type, count.text.toString().toInt(), period.text.toString()
                 )
                 habit.position = changedHabit?.position ?: 0
+                habit.color = getBackgroundColor(curentColor)
                 if (changed) {
                     putExtra("HABIT_CHANGED", habit)
                 } else {
@@ -72,30 +73,42 @@ class FormActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
 
-
-
+    fun getBackgroundColor(view: View): Int {
+        val drawable = view.background
+        return if (drawable is ColorDrawable) {
+            drawable.color
+        } else {
+            Color.TRANSPARENT // или любое другое значение по умолчанию
+        }
     }
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         val linearLayout = findViewById<LinearLayout>(R.id.gradient)
-        val view = findViewById<View>(R.id.colorView)
+        val w = linearLayout.width;
+        val curentColor = findViewById<View>(R.id.currentColor)
+        for (i in 0 until linearLayout.childCount) {
+            val childView = linearLayout.getChildAt(i)
+            childView.tag = getColor(childView, w)
+            childView.setOnClickListener { view ->
+                val colorTag = view.tag.toString().toInt()
+                curentColor.setBackgroundColor(colorTag)
+            }
+        }
+
+
+    }
+
+    fun getColor(view: View, w: Int): Int {
         val location = IntArray(2)
         view.getLocationOnScreen(location)
-// Получаем размеры и позиции
         val viewLeft = location[0]
         val viewWidth = view.width
-        val v1 = viewLeft+viewWidth/2
-
-
-        val w = linearLayout.width;
-        val startColor = Color.parseColor("#FFD78C") // Оранжевый
+        val v1 = viewLeft + viewWidth / 2
+        val startColor = Color.parseColor("#FFD78C")
         val endColor = Color.parseColor("#CD96FF")
-        Log.d("color",colorToRgbString(interpolateColor(startColor, endColor,
-            (v1/w).toFloat()
-        )))
+        return interpolateColor(startColor, endColor, (v1.toFloat() / w))
     }
-    fun pointBetweenColors(from: Float, to: Float, percent: Float): Float =
-        from + percent * (to - from)
 
     fun interpolateColor(color1: Int, color2: Int, fraction: Float): Int {
         val a = (Color.alpha(color1) * (1 - fraction) + Color.alpha(color2) * fraction).toInt()
@@ -104,6 +117,7 @@ class FormActivity : AppCompatActivity() {
         val b = (Color.blue(color1) * (1 - fraction) + Color.blue(color2) * fraction).toInt()
         return Color.argb(a, r, g, b)
     }
+
     fun colorToRgbString(color: Int): String {
         val red = Color.red(color)
         val green = Color.green(color)

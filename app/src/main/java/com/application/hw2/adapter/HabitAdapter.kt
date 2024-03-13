@@ -37,6 +37,7 @@ class HabitAdapter(private val context: Context) : RecyclerView.Adapter<HabitAda
         holder.binding.type.text =  habitList[position].type
         holder.binding.period.text = habitList[position].period
         holder.binding.priority.text = habitList[position].getStars()
+        holder.itemView.setBackgroundColor( habitList[position].color)
         habitList[position].position = position
         Log.d(position.toString(), "хммммм")
         holder.itemView.setOnClickListener {
