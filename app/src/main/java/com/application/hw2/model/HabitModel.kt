@@ -4,12 +4,12 @@ import android.graphics.Color
 import java.io.Serializable
 
 data class HabitModel(
-    var name: String,
-    var description: String,
-    var priority: Int,
-    var type: String,
-    var count: Int,
-    var periodicity: String
+    val name: String,
+    val description: String,
+    val priority: Int,
+    val type: String,
+    val count: Int,
+    val periodicity: String
 ) : Serializable {
     private val starsCount = 5
     val period: String
