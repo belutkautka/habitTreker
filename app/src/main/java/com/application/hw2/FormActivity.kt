@@ -22,6 +22,7 @@ class FormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.form_layout)
         val submitButton = findViewById<Button>(R.id.add)
+        val defaultButton = findViewById<Button>(R.id.toWhite)
         val name = findViewById<EditText>(R.id.editName)
         val description = findViewById<EditText>(R.id.editDescription)
         val priority = findViewById<Spinner>(R.id.editPriotity)
@@ -75,6 +76,13 @@ class FormActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             }
+        }
+        defaultButton.setOnClickListener {
+            val rgb = findViewById<TextView>(R.id.rgb)
+            val hsv = findViewById<TextView>(R.id.hsv)
+            curentColor.setBackgroundColor(Color.WHITE)
+            rgb.text = colorToRgbString(Color.WHITE)
+            hsv.text = colorToHsvString(Color.WHITE)
         }
 
     }

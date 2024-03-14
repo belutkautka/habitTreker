@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#BD79FB</color>
     <color name="orange">#FFD78C</color>
+    <color name="gray">#CFCECE</color>
     <color name="gradient_purple">#CD96FF</color>
 
 </resources>
