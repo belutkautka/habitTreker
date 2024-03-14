@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#12C8AEF8"
+    android:padding="10dp"
     tools:context=".FormActivity">
 
     <LinearLayout
@@ -23,13 +25,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="end"
-                android:text="Название" />
+                android:text="Название"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Введите название привычки"
                 android:textSize="12sp"
@@ -50,13 +53,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="end"
-                android:text="Описание" />
+                android:text="Описание"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Введите описание привычки"
                 android:textSize="12sp"
@@ -77,13 +81,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="end"
-                android:text="Период" />
+                android:text="Период"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/editCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="40dp"
                 android:hint="1"
                 android:inputType="number"
                 android:textSize="12sp"
@@ -122,13 +127,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="end"
-                android:text="Срочность" />
+                android:text="Срочность"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/editPriotity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:entries="@array/spinner_items" />
 
@@ -145,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="end"
-                android:text="Тип" />
+                android:text="Тип"
+                android:textSize="16sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -157,7 +164,7 @@
                     android:id="@+id/rb_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="65dp"
                     android:layout_weight="1"
                     android:checked="true"
                     android:text="Учеба" />
@@ -166,7 +173,7 @@
                     android:id="@+id/rb_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="65dp"
                     android:layout_weight="1"
                     android:text="Спорт" />
 
@@ -174,7 +181,7 @@
                     android:id="@+id/rb_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="65dp"
                     android:layout_weight="1"
                     android:text="Работа" />
 
@@ -182,7 +189,7 @@
                     android:id="@+id/rb_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="65dp"
                     android:layout_weight="1"
                     android:text="Досуг" />
 
@@ -190,11 +197,21 @@
                     android:id="@+id/rb_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="65dp"
                     android:layout_weight="1"
                     android:text="Другое" />
             </RadioGroup>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="end"
+            android:text="Выбор цвета"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -203,8 +220,9 @@
 
             <View
                 android:id="@+id/currentColor"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -215,21 +233,23 @@
                     android:id="@+id/rgb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp" />
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/hsv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp" />
+                    android:layout_marginStart="10dp"
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </LinearLayout>
 
         <HorizontalScrollView
             android:id="@+id/scrollView"
-            android:layout_width="184dp"
-            android:layout_height="50dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/gradient"
@@ -239,54 +259,47 @@
                 android:background="@drawable/gradient_orange_to_purple"
                 android:orientation="horizontal">
 
-                <View
-                    android:id="@+id/colorView"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
 
-                <View
-                    android:id="@+id/colorView2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
 
-                <View
-                    android:id="@+id/colorView3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
 
-                <View
-                    android:id="@+id/colorView4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
 
-                <View
-                    android:id="@+id/colorView5"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
 
-                <View
-                    android:id="@+id/colorView6"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/square" />
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
+                <include layout="@layout/square_view" />
+
             </LinearLayout>
         </HorizontalScrollView>
 
         <Button
             android:id="@+id/add"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:backgroundTint="@color/purple"
             android:text="Добавить"></Button>
     </LinearLayout>
