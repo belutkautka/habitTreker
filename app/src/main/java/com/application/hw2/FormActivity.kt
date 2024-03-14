@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
 import com.application.hw2.model.HabitModel
@@ -83,7 +84,10 @@ class FormActivity : AppCompatActivity() {
             Color.TRANSPARENT // или любое другое значение по умолчанию
         }
     }
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
+        val rgb = findViewById<TextView>(R.id.rgb)
+        val hsv = findViewById<TextView>(R.id.hsv)
         val linearLayout = findViewById<LinearLayout>(R.id.gradient)
         val w = linearLayout.width;
         val curentColor = findViewById<View>(R.id.currentColor)
@@ -93,9 +97,13 @@ class FormActivity : AppCompatActivity() {
             childView.setOnClickListener { view ->
                 val colorTag = view.tag.toString().toInt()
                 curentColor.setBackgroundColor(colorTag)
+                rgb.text = colorToRgbString(colorTag)
+                hsv.text = colorToHsvString(colorTag)
             }
         }
 
+        rgb.text = colorToRgbString(Color.WHITE)
+        hsv.text = colorToRgbString(Color.WHITE)
 
     }
 
@@ -123,5 +131,11 @@ class FormActivity : AppCompatActivity() {
         val green = Color.green(color)
         val blue = Color.blue(color)
         return "RGB: ($red, $green, $blue)"
+    }
+
+    fun colorToHsvString(color: Int): String {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+        return "HSV: ${hsv[0].toInt()}°, ${hsv[1].toInt()}%, ${hsv[2].toInt()}%"
     }
 }

@@ -65,6 +65,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,23 +78,26 @@
                 android:layout_marginStart="5dp"
                 android:gravity="end"
                 android:text="Период" />
+
             <EditText
                 android:id="@+id/editCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:hint="1"
-                android:textSize="12sp"
                 android:inputType="number"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:text=" в " />
+
             <EditText
                 android:id="@+id/editPeriod"
                 android:layout_width="wrap_content"
@@ -164,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
-                    android:text="Спорт"/>
+                    android:text="Спорт" />
 
                 <RadioButton
                     android:id="@+id/rb_3"
@@ -172,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
-                    android:text="Работа"/>
+                    android:text="Работа" />
 
                 <RadioButton
                     android:id="@+id/rb_4"
@@ -180,21 +184,48 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
-                    android:text="Досуг"/>
+                    android:text="Досуг" />
+
                 <RadioButton
                     android:id="@+id/rb_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
-                    android:text="Другое"/>
+                    android:text="Другое" />
             </RadioGroup>
         </LinearLayout>
-        <View
-            android:id="@+id/currentColor"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/currentColor"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rgb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp" />
+
+                <TextView
+                    android:id="@+id/hsv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
         <HorizontalScrollView
             android:id="@+id/scrollView"
             android:layout_width="184dp"
@@ -205,8 +236,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
-                android:orientation="horizontal"
-                android:background="@drawable/gradient_orange_to_purple">
+                android:background="@drawable/gradient_orange_to_purple"
+                android:orientation="horizontal">
 
                 <View
                     android:id="@+id/colorView"
@@ -221,6 +252,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:background="@drawable/square" />
+
                 <View
                     android:id="@+id/colorView3"
                     android:layout_width="50dp"
@@ -234,6 +266,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:background="@drawable/square" />
+
                 <View
                     android:id="@+id/colorView5"
                     android:layout_width="50dp"
@@ -254,9 +287,8 @@
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить"
-            android:backgroundTint="@color/purple">
-        </Button>
+            android:backgroundTint="@color/purple"
+            android:text="Добавить"></Button>
     </LinearLayout>
 
 
