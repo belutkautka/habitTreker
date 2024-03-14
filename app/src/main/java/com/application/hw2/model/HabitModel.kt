@@ -11,8 +11,8 @@ data class HabitModel(
     var count: Int,
     var periodicity: String
 ) : Serializable {
-    var MAX_STARS_COUNT = 5
-    var period: String = ""
+    private val starsCount = 5
+    val period: String
         get() = convertToPeriod()
     var exceptionsNumbers = intArrayOf(2, 3, 4)
     var position: Int = 0;
@@ -25,7 +25,7 @@ data class HabitModel(
         return "$count paз в $periodicity"
     }
 
-    public fun getStars(): String {
-        return "${"★".repeat(priority)}${"☆".repeat(MAX_STARS_COUNT - priority)}"
+    fun getStars(): String {
+        return "${"★".repeat(priority)}${"☆".repeat(starsCount - priority)}"
     }
 }

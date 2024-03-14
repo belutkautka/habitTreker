@@ -57,23 +57,37 @@ class FormActivity : AppCompatActivity() {
             submitButton.text = "Добавить"
         }
         submitButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                val habit = HabitModel(
-                    name.text.toString(), description.text.toString(),
-                    priority.selectedItem.toString().toInt(),
-                    type, count.text.toString().toInt(), period.text.toString()
-                )
-                habit.position = changedHabit?.position ?: 0
-                habit.color = getBackgroundColor(curentColor)
-                if (changed) {
-                    putExtra("HABIT_CHANGED", habit)
-                } else {
-                    putExtra("HABIT_CREATE", habit)
+            if (validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period)
+            ) {
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    val habit = HabitModel(
+                        name.text.toString(), description.text.toString(),
+                        priority.selectedItem.toString().toInt(),
+                        type, count.text.toString().toInt(), period.text.toString()
+                    )
+                    habit.position = changedHabit?.position ?: 0
+                    habit.color = getBackgroundColor(curentColor)
+                    if (changed) {
+                        putExtra("HABIT_CHANGED", habit)
+                    } else {
+                        putExtra("HABIT_CREATE", habit)
+                    }
                 }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
 
+    }
+
+    fun validateEditView(view: EditText): Boolean {
+        if (view.text.toString().isEmpty()) {
+            view.setBackgroundColor(Color.parseColor("#EE7783"))
+            view.hint = "Заполни меня"
+            return false
+        }
+        view.background = null
+        view.hint = ""
+        return true
     }
 
     fun getBackgroundColor(view: View): Int {
