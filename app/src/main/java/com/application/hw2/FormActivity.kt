@@ -37,7 +37,7 @@ class FormActivity : AppCompatActivity() {
         }
         val count = findViewById<EditText>(R.id.editCount)
         val period = findViewById<EditText>(R.id.editPeriod)
-        val changedHabit = intent.getSerializableExtra("HABIT_CHANGE") as? HabitModel
+        val changedHabit = intent.getSerializableExtra(CHANGE_KEY) as? HabitModel
         var changed = false
         if (changedHabit != null) {
             changed = true
@@ -58,7 +58,9 @@ class FormActivity : AppCompatActivity() {
             submitButton.text = "Добавить"
         }
         submitButton.setOnClickListener {
-            if (validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period)
+            if (validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(
+                    period
+                )
             ) {
                 val intent = Intent(this, MainActivity::class.java).apply {
                     val habit = HabitModel(
@@ -69,9 +71,9 @@ class FormActivity : AppCompatActivity() {
                     habit.position = changedHabit?.position ?: 0
                     habit.color = getBackgroundColor(curentColor)
                     if (changed) {
-                        putExtra("HABIT_CHANGED", habit)
+                        putExtra(CHANGED_KEY, habit)
                     } else {
-                        putExtra("HABIT_CREATE", habit)
+                        putExtra(CREATE_KEY, habit)
                     }
                 }
                 startActivity(intent)
@@ -103,7 +105,7 @@ class FormActivity : AppCompatActivity() {
         return if (drawable is ColorDrawable) {
             drawable.color
         } else {
-            Color.TRANSPARENT // или любое другое значение по умолчанию
+            Color.TRANSPARENT
         }
     }
 
@@ -159,5 +161,11 @@ class FormActivity : AppCompatActivity() {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
         return "HSV: ${hsv[0].toInt()}°, ${hsv[1].toInt()}%, ${hsv[2].toInt()}%"
+    }
+
+    companion object {
+        const val CHANGED_KEY = "HABIT_CHANGED"
+        const val CHANGE_KEY = "HABIT_CHANGE"
+        const val CREATE_KEY = "HABIT_CREATE"
     }
 }
