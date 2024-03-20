@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="2"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="16dp">
-
+<!--/constraintLayout-->
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"

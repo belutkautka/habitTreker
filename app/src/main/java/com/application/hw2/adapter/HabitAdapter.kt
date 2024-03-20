@@ -39,7 +39,6 @@ class HabitAdapter(private val context: Context) : RecyclerView.Adapter<HabitAda
         holder.binding.priority.text = habitList[position].getStars()
         holder.itemView.setBackgroundColor( habitList[position].color)
         habitList[position].position = position
-        Log.d(position.toString(), "хммммм")
         holder.itemView.setOnClickListener {
             val intent = Intent(context, FormActivity::class.java)
             intent.putExtra("HABIT_CHANGE", habitList[position])

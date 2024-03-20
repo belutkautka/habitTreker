@@ -47,24 +47,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var habits = ArrayList<HabitModel>()
     }
-
-//    fun habitsCreator(): ArrayList<HabitModel> {
-//        val list = ArrayList<HabitModel>()
-//        val habit1 = HabitModel(
-//            "Первая привычка", "Описание какое-то",
-//            0, "спорт", 1, "неделю"
-//        )
-//        val habit2 = HabitModel(
-//            "Вторая привычка", "Описание какое-тооооооо",
-//            5, "дз", 2, "месяц"
-//        )
-//        val habit3 = HabitModel(
-//            "Третья привычка", "К черту описание",
-//            3, "дз", 10, "год"
-//        )
-//        list.add(habit1)
-//        list.add(habit2)
-//        list.add(habit3)
-//        return list
-//    }
 }

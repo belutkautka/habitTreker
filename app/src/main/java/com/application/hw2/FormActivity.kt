@@ -91,8 +91,9 @@ class FormActivity : AppCompatActivity() {
 
     fun validateEditView(view: EditText): Boolean {
         if (view.text.toString().isEmpty()) {
-            view.setBackgroundColor(Color.parseColor("#EE7783"))
-            view.hint = "Заполни меня"
+
+            view.setBackgroundColor(resources.getColor(R.color.purple,null))
+            view.hint = "Заполни меня" //error +  в ресурсы
             return false
         }
         view.background = null
