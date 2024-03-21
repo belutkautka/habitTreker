@@ -24,6 +24,7 @@ class FormActivity : AppCompatActivity() {
     var startColor: Int = 0
     var endColor: Int = 0
     var changed: Boolean = false
+    var type: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +37,10 @@ class FormActivity : AppCompatActivity() {
         val curentColor = findViewById<View>(R.id.currentColor)
         val count = findViewById<EditText>(R.id.editCount)
         val period = findViewById<EditText>(R.id.editPeriod)
-        var type = resources.getText(R.string.default_type,null).toString()
+        type = resources.getText(R.string.default_type, null).toString()
 
         init(curentColor)
-        initButton(submitButton, name, period, count, description, priority, type, curentColor)
+        initButton(submitButton, name, period, count, description, priority, curentColor)
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
             if (checkedRadioButton != null && checkedRadioButton.isChecked) {
@@ -91,7 +92,7 @@ class FormActivity : AppCompatActivity() {
     }
 
     fun initButton(submitButton: Button, name: EditText, period: EditText, count: EditText,
-                   description: EditText, priority: Spinner, type:String, curentColor: View){
+                   description: EditText, priority: Spinner, curentColor: View){
         val position = intent.getIntExtra(Keys.HABIT_POSITION.name, 0)
         submitButton.setOnClickListener {
             if (validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period
