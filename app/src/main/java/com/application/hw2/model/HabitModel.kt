@@ -15,7 +15,6 @@ data class HabitModel(
     val period: String
         get() = convertToPeriod()
     var exceptionsNumbers = intArrayOf(2, 3, 4)
-    var position: Int = 0;
     var color: Int = Color.WHITE;
 
     private fun convertToPeriod(): String {

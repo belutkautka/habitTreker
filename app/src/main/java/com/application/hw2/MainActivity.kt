@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.ActivityMainBinding
+import com.application.hw2.db.HabitsList
+import com.application.hw2.enums.Keys
 import com.application.hw2.model.HabitModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -21,30 +23,27 @@ class MainActivity : AppCompatActivity() {
         initial()
         val fab: FloatingActionButton = findViewById(R.id.fabButton)
         fab.setOnClickListener {
-            habits = adapter.habitList
             val intent = Intent(this, FormActivity::class.java)
             startActivity(intent)
-        }
-        val createdHabit = intent.getSerializableExtra("HABIT_CREATE") as? HabitModel
-        val changedHabit = intent.getSerializableExtra("HABIT_CHANGED") as? HabitModel
-        if (createdHabit != null) {
-            adapter.habitList.add(createdHabit)
-            adapter.notifyDataSetChanged()
-        } else if (changedHabit != null) {
-            adapter.habitList[changedHabit.position] = changedHabit
-            adapter.notifyItemChanged(changedHabit.position)
         }
     }
 
     private fun initial() {
         recyclerView = binding.recyclerView
-        adapter = HabitAdapter(this)
+        adapter = HabitAdapter { habit: HabitModel, position: Int ->
+            Intent(this, FormActivity::class.java).run {
+                putExtra(Keys.HABIT_POSITION.name, position)
+                putExtra(Keys.HABIT_TO_CHANGE.name, habit)
+            }
+        }
         recyclerView.adapter = adapter
-        adapter.habitList = habits
-        adapter.notifyDataSetChanged()
+        adapter.submitList(HabitsList.selectAllHabits())
     }
 
-    companion object {
-        var habits = ArrayList<HabitModel>()
+    override fun onResume() {
+        if (HabitsList.changed){
+            adapter.submitList(HabitsList.selectAllHabits())
+        }
+        super.onResume()
     }
 }

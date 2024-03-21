@@ -1,6 +1,5 @@
 package com.application.hw2
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,6 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.forEach
+import com.application.hw2.db.HabitsList
+import com.application.hw2.enums.Keys
 import com.application.hw2.model.HabitModel
 
 class FormActivity : AppCompatActivity() {
@@ -37,7 +38,8 @@ class FormActivity : AppCompatActivity() {
         }
         val count = findViewById<EditText>(R.id.editCount)
         val period = findViewById<EditText>(R.id.editPeriod)
-        val changedHabit = intent.getSerializableExtra(CHANGE_KEY) as? HabitModel
+        val changedHabit = intent.getSerializableExtra(Keys.HABIT_TO_CHANGE.name) as? HabitModel
+        val position = intent.getIntExtra(Keys.HABIT_POSITION.name, 0)
         var changed = false
         if (changedHabit != null) {
             changed = true
@@ -62,21 +64,18 @@ class FormActivity : AppCompatActivity() {
                     period
                 )
             ) {
-                val intent = Intent(this, MainActivity::class.java).apply {
-                    val habit = HabitModel(
-                        name.text.toString(), description.text.toString(),
-                        priority.selectedItem.toString().toInt(),
-                        type, count.text.toString().toInt(), period.text.toString()
-                    )
-                    habit.position = changedHabit?.position ?: 0
-                    habit.color = getBackgroundColor(curentColor)
-                    if (changed) {
-                        putExtra(CHANGED_KEY, habit)
-                    } else {
-                        putExtra(CREATE_KEY, habit)
-                    }
+                val habit = HabitModel(
+                    name.text.toString(), description.text.toString(),
+                    priority.selectedItem.toString().toInt(),
+                    type, count.text.toString().toInt(), period.text.toString()
+                )
+                habit.color = getBackgroundColor(curentColor)
+                if (changed) {
+                    HabitsList.insertIntoPosition(habit, position)
+                } else {
+                    HabitsList.insertToEnd(habit)
                 }
-                startActivity(intent)
+                finish()
             }
         }
         defaultButton.setOnClickListener {
@@ -92,7 +91,7 @@ class FormActivity : AppCompatActivity() {
     fun validateEditView(view: EditText): Boolean {
         if (view.text.toString().isEmpty()) {
 
-            view.setBackgroundColor(resources.getColor(R.color.purple,null))
+            view.setBackgroundColor(resources.getColor(R.color.purple, null))
             view.hint = "Заполни меня" //error +  в ресурсы
             return false
         }
@@ -162,11 +161,5 @@ class FormActivity : AppCompatActivity() {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
         return "HSV: ${hsv[0].toInt()}°, ${hsv[1].toInt()}%, ${hsv[2].toInt()}%"
-    }
-
-    companion object {
-        const val CHANGED_KEY = "HABIT_CHANGED"
-        const val CHANGE_KEY = "HABIT_CHANGE"
-        const val CREATE_KEY = "HABIT_CREATE"
     }
 }

@@ -1,20 +1,15 @@
 package com.application.hw2.adapter
 
-import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.application.hw2.FormActivity
-import com.application.hw2.MainActivity
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 import com.application.hw2.model.HabitModel
 
-class HabitAdapter(private val context: Context) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
-
-    var habitList = ArrayList<HabitModel>()
+class HabitAdapter(val onClick: (HabitModel, Int) -> Unit) :
+    ListAdapter<HabitModel, HabitAdapter.HabitViewHolder>(MyItemDiffCallback()) {
     class HabitViewHolder(val binding: ItemHabitLayoutBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
@@ -27,22 +22,25 @@ class HabitAdapter(private val context: Context) : RecyclerView.Adapter<HabitAda
         )
     }
 
-    override fun getItemCount(): Int {
-        return habitList.size
+    class MyItemDiffCallback : DiffUtil.ItemCallback<HabitModel>() {
+        override fun areItemsTheSame(oldItem: HabitModel, newItem: HabitModel): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: HabitModel, newItem: HabitModel): Boolean {
+            return oldItem == newItem
+        }
     }
 
+
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
-        holder.binding.name.text = habitList[position].name
-        holder.binding.description.text = habitList[position].description
-        holder.binding.type.text =  habitList[position].type
-        holder.binding.period.text = habitList[position].period
-        holder.binding.priority.text = habitList[position].getStars()
-        holder.itemView.setBackgroundColor( habitList[position].color)
-        habitList[position].position = position
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, FormActivity::class.java)
-            intent.putExtra("HABIT_CHANGE", habitList[position])
-            context.startActivity(intent)
-        }
+        val habit = getItem(position)
+        holder.binding.name.text = habit.name
+        holder.binding.description.text = habit.description
+        holder.binding.type.text = habit.type
+        holder.binding.period.text = habit.period
+        holder.binding.priority.text = habit.getStars()
+        holder.itemView.setBackgroundColor(habit.color)
+        onClick(habit, position)
     }
 }
