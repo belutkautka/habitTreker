@@ -90,13 +90,9 @@ class FormActivity : AppCompatActivity() {
 
     fun validateEditView(view: EditText): Boolean {
         if (view.text.toString().isEmpty()) {
-
-            view.setBackgroundColor(resources.getColor(R.color.purple, null))
-            view.hint = "Заполни меня" //error +  в ресурсы
+            view.error = "Заполни меня" //error +  в ресурсы
             return false
         }
-        view.background = null
-        view.hint = ""
         return true
     }
 

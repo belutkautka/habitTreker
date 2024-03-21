@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initial()
-        val fab: FloatingActionButton = findViewById(R.id.fabButton)
-        fab.setOnClickListener {
-            val intent = Intent(this, FormActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initial() {
@@ -38,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
         adapter.submitList(HabitsList.selectAllHabits())
+        val fab: FloatingActionButton = findViewById(R.id.fabButton)
+        fab.setOnClickListener {
+            val intent = Intent(this, FormActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
