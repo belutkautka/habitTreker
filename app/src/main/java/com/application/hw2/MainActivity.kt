@@ -26,10 +26,11 @@ class MainActivity : AppCompatActivity() {
     private fun initial() {
         recyclerView = binding.recyclerView
         adapter = HabitAdapter { habit: HabitModel, position: Int ->
-            Intent(this, FormActivity::class.java).run {
+            var intent = Intent(this, FormActivity::class.java).apply {
                 putExtra(Keys.HABIT_POSITION.name, position)
                 putExtra(Keys.HABIT_TO_CHANGE.name, habit)
             }
+            startActivity(intent)
         }
         recyclerView.adapter = adapter
         adapter.submitList(HabitsList.selectAllHabits())
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        if (HabitsList.changed){
+        if (HabitsList.changed) {
             adapter.submitList(HabitsList.selectAllHabits())
         }
         super.onResume()

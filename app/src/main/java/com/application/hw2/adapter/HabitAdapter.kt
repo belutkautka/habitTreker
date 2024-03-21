@@ -32,7 +32,6 @@ class HabitAdapter(val onClick: (HabitModel, Int) -> Unit) :
         }
     }
 
-
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         val habit = getItem(position)
         holder.binding.name.text = habit.name
@@ -41,6 +40,8 @@ class HabitAdapter(val onClick: (HabitModel, Int) -> Unit) :
         holder.binding.period.text = habit.period
         holder.binding.priority.text = habit.getStars()
         holder.itemView.setBackgroundColor(habit.color)
-        onClick(habit, position)
+        holder.itemView.setOnClickListener {
+            onClick(habit, position)
+        }
     }
 }
