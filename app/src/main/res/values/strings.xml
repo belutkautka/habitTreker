@@ -1,4 +1,8 @@
 <resources>
+    <string name="save">Сохранить изменения</string>
+    <string name="add">Добавить</string>
+    <string name="default_type">Учеба</string>
+    <string name="error">Заполни меня</string>
     <string name="app_name">hw2</string>
     <string-array name="spinner_items">
         <item>1</item>

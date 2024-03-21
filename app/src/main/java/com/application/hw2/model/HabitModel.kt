@@ -9,13 +9,13 @@ data class HabitModel(
     val priority: Int,
     val type: String,
     val count: Int,
-    val periodicity: String
+    val periodicity: String,
+    var color:Int = Color.WHITE
 ) : Serializable {
     private val starsCount = 5
     val period: String
         get() = convertToPeriod()
     var exceptionsNumbers = intArrayOf(2, 3, 4)
-    var color: Int = Color.WHITE;
 
     private fun convertToPeriod(): String {
         if (count in exceptionsNumbers) {
