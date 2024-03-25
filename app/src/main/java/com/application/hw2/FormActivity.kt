@@ -3,7 +3,6 @@ package com.application.hw2
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -48,10 +47,20 @@ class FormActivity : AppCompatActivity() {
             }
         }
         val changedHabit = intent.getSerializableExtra(Keys.HABIT_TO_CHANGE.name) as? HabitModel
-       changed = false
+        changed = false
         if (changedHabit != null) {
             changed = true
-            setHabitData(name, period, count, description, priority, changedHabit, submitButton, typeGroup, curentColor)
+            setHabitData(
+                name,
+                period,
+                count,
+                description,
+                priority,
+                changedHabit,
+                submitButton,
+                typeGroup,
+                curentColor
+            )
         } else {
             submitButton.text = resources.getText(R.string.add, null)
         }
@@ -91,13 +100,14 @@ class FormActivity : AppCompatActivity() {
         }
     }
 
-    fun initButton(submitButton: Button, name: EditText, period: EditText, count: EditText,
-                   description: EditText, priority: Spinner, curentColor: View){
+    fun initButton(
+        submitButton: Button, name: EditText, period: EditText, count: EditText,
+        description: EditText, priority: Spinner, curentColor: View
+    ) {
         val position = intent.getIntExtra(Keys.HABIT_POSITION.name, 0)
         submitButton.setOnClickListener {
-            if (validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period
-            )
-            ) {
+            val isValidate = validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period)
+            if (isValidate) {
                 val habit = HabitModel(
                     name.text.toString(), description.text.toString(),
                     priority.selectedItem.toString().toInt(),
