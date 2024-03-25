@@ -61,12 +61,12 @@ class FormActivity : AppCompatActivity() {
         name: EditText, period: EditText, count: EditText, description: EditText, priority: Spinner,
         changedHabit: HabitModel, submitButton: Button, typeGroup: RadioGroup, curentColor: View
     ) {
-        name.text = Editable.Factory.getInstance().newEditable(changedHabit.name)
-        description.text = Editable.Factory.getInstance().newEditable(changedHabit.description)
+        name.setText(changedHabit.name, TextView.BufferType.EDITABLE)
+        description.setText(changedHabit.description, TextView.BufferType.EDITABLE)
         priority.setSelection(changedHabit.priority - 1)
-        count.text = Editable.Factory.getInstance().newEditable(changedHabit.count.toString())
-        period.text = Editable.Factory.getInstance().newEditable(changedHabit.periodicity)
-        submitButton.text = resources.getText(R.string.save, null)
+        count.setText(changedHabit.count.toString(), TextView.BufferType.EDITABLE)
+        period.setText(changedHabit.periodicity, TextView.BufferType.EDITABLE)
+        submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
             if (view is RadioButton && view.text == changedHabit.type) {
                 view.isChecked = true
