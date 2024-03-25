@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#12C8AEF8"
     android:padding="10dp"
     tools:context=".FormActivity">
 
@@ -222,7 +221,7 @@
                 android:id="@+id/currentColor"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@color/white" />
+                android:background="@drawable/border" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -242,11 +241,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:textSize="16sp" />
+
                 <Button
                     android:id="@+id/toWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/gray"
                     android:text="Цвет по умолчанию"></Button>
