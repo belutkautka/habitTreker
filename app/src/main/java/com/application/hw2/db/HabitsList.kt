@@ -10,7 +10,11 @@ object HabitsList {
     fun selectAllHabits(): List<HabitModel> {
         changed = false
         return habits.toList()
+    }
 
+    fun selectHabitsByType(type: String): List<HabitModel>{
+        changed = false
+        return habits.filter { habit -> habit.type == type}
     }
 
     fun insertIntoPosition(habit: HabitModel, position: Int) {
