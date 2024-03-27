@@ -18,6 +18,7 @@ class MainFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+    private val tabTitle = listOf("GOOD" ,"BAD")
 
     private val fragments = ArrayList<HabitFragment>();
 
@@ -59,6 +60,7 @@ class MainFragment : Fragment() {
         HabitsList.init()
         val pagerAdapter = MainPagerAdapter(this, fragments)
         viewPager.adapter = pagerAdapter
+        TabLayoutMediator(binding.tab,viewPager){ tab,pos -> tab.text = tabTitle[pos]}.attach()
     }
 
     fun updateFragments() {
