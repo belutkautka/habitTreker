@@ -1,4 +1,4 @@
-package com.application.hw2
+package com.application.hw2.fragments
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
-import com.application.hw2.com.application.hw2.MainFragment
+import com.application.hw2.ColorPicker
+import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.Keys

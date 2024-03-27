@@ -1,4 +1,4 @@
-package com.application.hw2.com.application.hw2
+package com.application.hw2.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.application.hw2.FormFragment
-import com.application.hw2.HabitFragment
 import com.application.hw2.R
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
@@ -62,7 +61,7 @@ class MainFragment : Fragment() {
         viewPager.adapter = pagerAdapter
     }
 
-     fun updateFragments() {
+    fun updateFragments() {
         fragments[0].update()
         fragments[1].update()
         super.onResume()
@@ -79,10 +78,13 @@ class MainFragment : Fragment() {
         GOOD,
         BAD
     }
-    private class MainPagerAdapter(fragment:Fragment,val fragments: List<HabitFragment>) : FragmentStateAdapter(fragment) {
+
+    private class MainPagerAdapter(fragment: Fragment, val fragments: List<HabitFragment>) :
+        FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = fragments.size
 
         override fun createFragment(position: Int): Fragment {
             return fragments[position]
         }
-}}
+    }
+}

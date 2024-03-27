@@ -1,4 +1,4 @@
-package com.application.hw2
+package com.application.hw2.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
-import com.application.hw2.com.application.hw2.MainFragment
 import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.Keys
