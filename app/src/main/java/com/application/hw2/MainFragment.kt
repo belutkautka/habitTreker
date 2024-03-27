@@ -1,6 +1,7 @@
 package com.application.hw2.com.application.hw2
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +34,10 @@ class MainFragment : Fragment() {
         val fab: FloatingActionButton = binding.fabButton
         fab.setOnClickListener {
             val fragment = FormFragment.newInstance()
-
+            Log.d("TAG",this.tag.toString())
             parentFragmentManager
                 .beginTransaction()
-                .remove(this)
+                .hide(this)
                 .add(R.id.mainFrameLayout, fragment, "FORM_FRAGMENT")// TODO вынести теги
                 .commit()
         }

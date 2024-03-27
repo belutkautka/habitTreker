@@ -147,6 +147,7 @@ class FormFragment() : Fragment() {
                     HabitsList.insertToEnd(habit)
                 }
                 parentFragmentManager.beginTransaction()
+                    .show(parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT")!!)
                         .remove(this)
                         .commit()
 

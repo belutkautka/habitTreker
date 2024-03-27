@@ -45,11 +45,11 @@ class HabitFragment() : Fragment() {
         initial()
     }
 
-    override fun onStart() {
+    override fun onResume() {
         if (HabitsList.changed) {
             adapter.submitList(HabitsList.selectHabitsByType(habitType.name))
         }
-        super.onStart()
+        super.onResume()
     }
 
     private fun initial() {
