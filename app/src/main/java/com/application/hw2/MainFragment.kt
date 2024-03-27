@@ -78,6 +78,4 @@ class MainFragment : Fragment() {
             return fragment
         }
     }
-
-
 }
