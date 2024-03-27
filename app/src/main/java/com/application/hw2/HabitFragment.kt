@@ -45,12 +45,14 @@ class HabitFragment() : Fragment() {
         initial()
     }
 
-    override fun onResume() {
-        if (HabitsList.changed) {
-            adapter.submitList(HabitsList.selectHabitsByType(habitType.name))
-        }
-        super.onResume()
-    }
+//    fun Update() {
+//        adapter.submitList(HabitsList.selectHabitsByType(
+//            type = when (habitType) {
+//                MainFragment.HabitType.GOOD -> "GOOD"
+//                MainFragment.HabitType.BAD -> "BAD"
+//            }
+//        ))
+//    }
 
     private fun initial() {
         recyclerView = binding.recyclerView
