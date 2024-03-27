@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
         viewPager.adapter = pagerAdapter
     }
 
-     fun UpdateFragments() {
+     fun updateFragments() {
         fragments[0].update()
         fragments[1].update()
         super.onResume()

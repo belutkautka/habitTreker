@@ -89,7 +89,7 @@ class FormFragment() : Fragment() {
         } else {
             submitButton.text = resources.getText(R.string.add, null)
         }
-        colorPick()
+        calculateColors()
     }
 
     fun setHabitData(
@@ -149,7 +149,7 @@ class FormFragment() : Fragment() {
                 }
                 val fragment =
                     parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT") as MainFragment
-                fragment.UpdateFragments()
+                fragment.updateFragments()
                 parentFragmentManager.beginTransaction()
                     .show(fragment)
                     .remove(this)
@@ -176,10 +176,12 @@ class FormFragment() : Fragment() {
         }
     }
 
-    fun colorPick() {
+    fun calculateColors() {
+        super.onResume()
         val rgb = binding.rgb
         val hsv = binding.hsv
         val linearLayout = binding.gradient
+        linearLayout.post {
         val w = linearLayout.width;
         val curentColor = binding.currentColor
         for (i in 0 until linearLayout.childCount) {
@@ -191,7 +193,7 @@ class FormFragment() : Fragment() {
                 rgb.text = ColorPicker.colorToRgbString(colorTag)
                 hsv.text = ColorPicker.colorToHsvString(colorTag)
             }
-        }
+        }}
         rgb.text = ColorPicker.colorToRgbString(defaultColor)
         hsv.text = ColorPicker.colorToRgbString(defaultColor)
     }
