@@ -36,6 +36,7 @@ class MainFragment : Fragment() {
 
             parentFragmentManager
                 .beginTransaction()
+                .remove(this)
                 .add(R.id.mainFrameLayout, fragment, "FORM_FRAGMENT")// TODO вынести теги
                 .commit()
         }

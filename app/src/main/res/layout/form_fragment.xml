@@ -161,7 +161,7 @@
                 android:layout_marginStart="65dp"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Учеба" />
+                android:text="GOOD" />
 
             <RadioButton
                 android:id="@+id/rb_2"
@@ -169,31 +169,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="65dp"
                 android:layout_weight="1"
-                android:text="Спорт" />
+                android:text="BAD" />
 
-            <RadioButton
-                android:id="@+id/rb_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
-                android:layout_weight="1"
-                android:text="Работа" />
-
-            <RadioButton
-                android:id="@+id/rb_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
-                android:layout_weight="1"
-                android:text="Досуг" />
-
-            <RadioButton
-                android:id="@+id/rb_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="65dp"
-                android:layout_weight="1"
-                android:text="Другое" />
         </RadioGroup>
     </LinearLayout>
 

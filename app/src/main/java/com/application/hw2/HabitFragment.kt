@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.com.application.hw2.MainFragment
+import com.application.hw2.com.application.hw2.MainFragment.Companion.FRAGMENT_TAG
 import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.Keys
@@ -41,15 +42,14 @@ class HabitFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initial()
     }
 
-    override fun onResume() {
+    override fun onStart() {
         if (HabitsList.changed) {
-            adapter.submitList(HabitsList.selectAllHabits())
+            adapter.submitList(HabitsList.selectHabitsByType(habitType.name))
         }
-        super.onResume()
+        super.onStart()
     }
 
     private fun initial() {
@@ -70,8 +70,8 @@ class HabitFragment() : Fragment() {
         recyclerView.adapter = adapter
         adapter.submitList(HabitsList.selectHabitsByType(
             type = when (habitType) {
-                MainFragment.HabitType.GOOD -> ""
-                MainFragment.HabitType.BAD -> ""
+                MainFragment.HabitType.GOOD -> "GOOD"
+                MainFragment.HabitType.BAD -> "BAD"
             }
         ))
 
