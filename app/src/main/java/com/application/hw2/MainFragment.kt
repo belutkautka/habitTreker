@@ -13,7 +13,6 @@ import com.application.hw2.HabitFragment
 import com.application.hw2.R
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.db.HabitsList
-import com.application.hw2.model.HabitModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainFragment : Fragment() {
@@ -63,11 +62,11 @@ class MainFragment : Fragment() {
         viewPager.adapter = pagerAdapter
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        fragments[0].Update()
-//        fragments[1].Update()
-//    }
+     fun UpdateFragments() {
+        fragments[0].update()
+        fragments[1].update()
+        super.onResume()
+    }
 
     companion object {
         const val FRAGMENT_TAG = "MAIN_FRAGMENT"

@@ -8,18 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.application.hw2.com.application.hw2.MainFragment
-import com.application.hw2.com.application.hw2.MainFragment.Companion.FRAGMENT_TAG
 import com.application.hw2.databinding.FormFragmentBinding
-import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.Keys
 import com.application.hw2.model.HabitModel
@@ -95,6 +91,7 @@ class FormFragment() : Fragment() {
         }
         colorPick()
     }
+
     fun setHabitData(
         name: EditText, period: EditText, count: EditText, description: EditText, priority: Spinner,
         changedHabit: HabitModel, submitButton: Button, typeGroup: RadioGroup, curentColor: View
@@ -113,6 +110,7 @@ class FormFragment() : Fragment() {
         }
         curentColor.setBackgroundColor(changedHabit.color)
     }
+
     fun init(curentColor: View) {
         defaultColor = resources.getColor(R.color.white, null)
         startColor = resources.getColor(R.color.orange, null)
@@ -133,7 +131,10 @@ class FormFragment() : Fragment() {
         description: EditText, priority: Spinner, curentColor: View
     ) {
         submitButton.setOnClickListener {
-            val isValidate = validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(period)
+            val isValidate =
+                validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(
+                    period
+                )
             if (isValidate) {
                 val habit = HabitModel(
                     name.text.toString(), description.text.toString(),
@@ -146,10 +147,13 @@ class FormFragment() : Fragment() {
                 } else {
                     HabitsList.insertToEnd(habit)
                 }
+                val fragment =
+                    parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT") as MainFragment
+                fragment.UpdateFragments()
                 parentFragmentManager.beginTransaction()
-                    .show(parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT")!!)
-                        .remove(this)
-                        .commit()
+                    .show(fragment)
+                    .remove(this)
+                    .commit()
 
             }
         }

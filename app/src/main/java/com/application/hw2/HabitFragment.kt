@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.com.application.hw2.MainFragment
-import com.application.hw2.com.application.hw2.MainFragment.Companion.FRAGMENT_TAG
 import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.Keys
@@ -17,7 +16,7 @@ import com.application.hw2.model.HabitModel
 class HabitFragment() : Fragment() {
     private var _binding: HabitFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var habitType : MainFragment.HabitType
+    private lateinit var habitType: MainFragment.HabitType
 
     lateinit var adapter: HabitAdapter
     lateinit var recyclerView: RecyclerView
@@ -45,14 +44,18 @@ class HabitFragment() : Fragment() {
         initial()
     }
 
-//    fun Update() {
-//        adapter.submitList(HabitsList.selectHabitsByType(
-//            type = when (habitType) {
-//                MainFragment.HabitType.GOOD -> "GOOD"
-//                MainFragment.HabitType.BAD -> "BAD"
-//            }
-//        ))
-//    }
+    fun update() {
+        if (::adapter.isInitialized) {
+            adapter.submitList(
+                HabitsList.selectHabitsByType(
+                    type = when (habitType) {
+                        MainFragment.HabitType.GOOD -> "GOOD"
+                        MainFragment.HabitType.BAD -> "BAD"
+                    }
+                )
+            )
+        }
+    }
 
     private fun initial() {
         recyclerView = binding.recyclerView
@@ -70,12 +73,14 @@ class HabitFragment() : Fragment() {
                 .commit()
         }
         recyclerView.adapter = adapter
-        adapter.submitList(HabitsList.selectHabitsByType(
-            type = when (habitType) {
-                MainFragment.HabitType.GOOD -> "GOOD"
-                MainFragment.HabitType.BAD -> "BAD"
-            }
-        ))
+        adapter.submitList(
+            HabitsList.selectHabitsByType(
+                type = when (habitType) {
+                    MainFragment.HabitType.GOOD -> "GOOD"
+                    MainFragment.HabitType.BAD -> "BAD"
+                }
+            )
+        )
 
     }
 }
