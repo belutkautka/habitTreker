@@ -1,11 +1,12 @@
 package com.application.hw2.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.application.hw2.R
@@ -14,13 +15,17 @@ import com.application.hw2.db.HabitsList
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = listOf("GOOD" ,"BAD")
 
     private val fragments = ArrayList<HabitFragment>();
+
+    private val navController: NavController by lazy {
+        Navigation.findNavController(requireView())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,14 +51,19 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = binding.fabButton
+//        fab.setOnClickListener {
+//            val fragment = FormFragment.newInstance()
+//            Log.d("TAG", this.tag.toString())
+//            parentFragmentManager
+//                .beginTransaction()
+//                .hide(this)
+//                .add(R.id.mainFrameLayout, fragment, "FORM_FRAGMENT")// TODO вынести теги
+//                .commit()
+//        }
+
         fab.setOnClickListener {
-            val fragment = FormFragment.newInstance()
-            Log.d("TAG", this.tag.toString())
-            parentFragmentManager
-                .beginTransaction()
-                .hide(this)
-                .add(R.id.mainFrameLayout, fragment, "FORM_FRAGMENT")// TODO вынести теги
-                .commit()
+            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit(getString(R.string.label_add))
+            navController.navigate(action)
         }
 
         viewPager = binding.MainViewPager
@@ -70,10 +80,10 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        const val FRAGMENT_TAG = "MAIN_FRAGMENT"
+//        const val FRAGMENT_TAG = "MAIN_FRAGMENT"
         const val BUNDLE_KEY = "HABIT_TYPE_KEY"
 
-        fun newInstance() = MainFragment()
+//        fun newInstance() = MainFragment()
     }
 
     enum class HabitType {

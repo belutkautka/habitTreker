@@ -14,6 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
@@ -34,6 +36,16 @@ class FormFragment() : Fragment() {
     var changed: Boolean = false
     var type: String = ""
 
+    private val navController: NavController by lazy {
+        Navigation.findNavController(requireView())
+    }
+    private val habitToEdit: HabitModel? by lazy {
+        FragmentAddEditArgs.fromBundle(requireArguments()).habitToEdit
+    }
+    private val positionArg: Int? by lazy {
+        FragmentAddEditArgs.fromBundle(requireArguments()).position
+    }
+
     companion object {
         fun newInstance() = FormFragment()
     }
@@ -43,6 +55,11 @@ class FormFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        habitToEdit?.let{
+            habitNameAddAndEdit.setText(it.title)
+            habitDescriptionAddAndEdit.setText((it.description))
+
         arguments?.apply {
             position = this.getInt(Keys.HABIT_POSITION.name)
             habit = this.getSerializable(Keys.HABIT_TO_CHANGE.name) as? HabitModel
@@ -148,14 +165,14 @@ class FormFragment() : Fragment() {
                 } else {
                     HabitsList.insertToEnd(habit)
                 }
-                val fragment =
-                    parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT") as MainFragment
-                fragment.updateFragments()
-                parentFragmentManager.beginTransaction()
-                    .show(fragment)
-                    .remove(this)
-                    .commit()
-
+                navController.popBackStack()
+//                val fragment =
+//                    parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT") as MainFragment
+//                fragment.updateFragments()
+//                parentFragmentManager.beginTransaction()
+//                    .show(fragment)
+//                    .remove(this)
+//                    .commit()
             }
         }
     }

@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
-import com.application.hw2.enums.Keys
-import com.application.hw2.model.HabitModel
 
 class HabitFragment() : Fragment() {
     private var _binding: HabitFragmentBinding? = null
@@ -59,19 +56,7 @@ class HabitFragment() : Fragment() {
 
     private fun initial() {
         recyclerView = binding.recyclerView
-        adapter = HabitAdapter { habit: HabitModel, position: Int ->
-
-            val fragment = FormFragment.newInstance()
-            fragment.arguments = Bundle().apply {
-                putInt(Keys.HABIT_POSITION.name, position)
-                putSerializable(Keys.HABIT_TO_CHANGE.name, habit)
-            }
-
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.mainFrameLayout, fragment, "HABIT_FRAGMENT")
-                .commit()
-        }
+        adapter = HabitAdapter(this)
         recyclerView.adapter = adapter
         adapter.submitList(
             HabitsList.selectHabitsByType(

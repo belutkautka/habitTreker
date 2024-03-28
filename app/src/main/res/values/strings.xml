@@ -11,4 +11,8 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
+    <string name="label_add">Adding habit</string>
+    <string name="label_edit">Editing habit</string>
 </resources>
