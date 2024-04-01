@@ -1,19 +1,22 @@
 package com.application.hw2.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.application.hw2.R
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 import com.application.hw2.fragments.HabitFragment
 import com.application.hw2.model.HabitModel
 
-class HabitAdapter(val context: HabitFragment) :
+class HabitAdapter(val context: HabitFragment, ) :
     ListAdapter<HabitModel, HabitAdapter.HabitViewHolder>(MyItemDiffCallback()) {
     class HabitViewHolder(val binding: ItemHabitLayoutBinding) : ViewHolder(binding.root)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         return HabitViewHolder(
@@ -42,15 +45,15 @@ class HabitAdapter(val context: HabitFragment) :
         holder.binding.type.text = habit.type
         holder.binding.period.text = habit.period
         holder.binding.priority.text = habit.getStars()
-        holder.itemView.setOnClickListener {
-            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit(
-                context.resources.getString(R.string.label_edit)
-            )
-            action.habitToEdit = habit
-            action.position = position
-
-            Navigation.findNavController(it).navigate(action)
-        }
+//        holder.itemView.setOnClickListener {
+//            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit(
+//                context.resources.getString(R.string.label_edit)
+//            )
+//            action.habitToEdit = habit
+//            action.position = position
+//
+//            Navigation.findNavController(it).navigate(action)
+//        }
 
     }
 }

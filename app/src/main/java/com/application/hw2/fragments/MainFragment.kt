@@ -62,7 +62,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 //        }
 
         fab.setOnClickListener {
-            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit(getString(R.string.label_add))
+            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
             navController.navigate(action)
         }
 
