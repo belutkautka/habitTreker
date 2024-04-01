@@ -2,6 +2,7 @@ package com.application.hw2
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -33,14 +34,14 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             navController.setGraph(R.navigation.navigation_graph)
         }
-//        if (savedInstanceState == null) {
-//            val fragment = MainFragment.newInstance()
-//
-//            supportFragmentManager
-//                .beginTransaction()
-//                .add(R.id.mainFrameLayout, fragment, FRAGMENT_TAG)
-//                .commit()
-//        }
+    }
+
+    override fun onBackPressed() {
+        if (binding.navigationDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.navigationDrawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
 }

@@ -39,12 +39,12 @@ class FormFragment() : Fragment() {
     private val navController: NavController by lazy {
         Navigation.findNavController(requireView())
     }
-    private val habitToEdit: HabitModel? by lazy {
-        FragmentAddEditArgs.fromBundle(requireArguments()).habitToEdit
-    }
-    private val positionArg: Int? by lazy {
-        FragmentAddEditArgs.fromBundle(requireArguments()).position
-    }
+//    private val habitToEdit: HabitModel? by lazy {
+//        FragmentAddEditArgs.fromBundle(requireArguments()).habitToEdit
+//    }
+//    private val positionArg: Int? by lazy {
+//        FragmentAddEditArgs.fromBundle(requireArguments()).position
+//    }
 
     companion object {
         fun newInstance() = FormFragment()
@@ -55,10 +55,10 @@ class FormFragment() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        habitToEdit?.let{
-            habitNameAddAndEdit.setText(it.title)
-            habitDescriptionAddAndEdit.setText((it.description))
+//
+//        habitToEdit?.let{
+//            habitNameAddAndEdit.setText(it.title)
+//            habitDescriptionAddAndEdit.setText((it.description))
 
         arguments?.apply {
             position = this.getInt(Keys.HABIT_POSITION.name)

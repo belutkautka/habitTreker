@@ -61,10 +61,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 //                .commit()
 //        }
 
-        fab.setOnClickListener {
-            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
-            navController.navigate(action)
-        }
+//        fab.setOnClickListener {
+//            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
+//            navController.navigate(action)
+//        }
 
         viewPager = binding.MainViewPager
         HabitsList.init()
