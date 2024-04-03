@@ -28,8 +28,7 @@ class HabitFragment() : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         arguments?.apply {
             habitType = this.getSerializable(MainFragment.BUNDLE_KEY) as HabitType
         }
@@ -40,27 +39,19 @@ class HabitFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initial()
+        init()
     }
 
-    private fun initial() {
+    private fun init() {
         recyclerView = binding.recyclerView
         adapter = HabitAdapter(onHabitClickListener = { habit, position ->
             val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
             action.habitToEdit = habit
             action.position = position
-
             Navigation.findNavController(requireView()).navigate(action)
         })
-        recyclerView.adapter = adapter
-        adapter.submitList(
-            HabitsList.selectHabitsByType(
-                type = when (habitType) {
-                    HabitType.GOOD -> "GOOD"
-                    HabitType.BAD -> "BAD"
-                }
-            )
-        )
 
+        recyclerView.adapter = adapter
+        adapter.submitList(HabitsList.selectHabitsByType(habitType.name))
     }
 }
