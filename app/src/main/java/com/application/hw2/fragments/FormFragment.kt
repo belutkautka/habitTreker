@@ -23,7 +23,7 @@ import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
 
-class FormFragment() : Fragment() {
+class FormFragment : Fragment() {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
 

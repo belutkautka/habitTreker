@@ -281,5 +281,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/purple"
-        android:text="@string/add"></Button>
+        android:text="@string/add"/>
 </LinearLayout>

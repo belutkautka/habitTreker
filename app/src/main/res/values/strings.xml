@@ -15,7 +15,7 @@
     </string-array>
     <string name="label_add">Добавление привычки</string>
     <string name="label_edit">Редактирование привычки</string>
-<!-- Значения для формы-->
+<!--Значения для формы-->
     <string name="name">Название</string>
     <string name="editName">Введите название привычки</string>
     <string name="description">Описание</string>

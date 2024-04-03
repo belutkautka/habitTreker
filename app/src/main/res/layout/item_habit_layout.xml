@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:text="2 раза в неделю"
+            android:text="2 times a week"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="16sp"

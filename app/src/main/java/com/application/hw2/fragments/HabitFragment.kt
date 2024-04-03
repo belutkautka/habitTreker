@@ -13,7 +13,7 @@ import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.HabitType
 
-class HabitFragment() : Fragment() {
+class HabitFragment : Fragment() {
     private var _binding: HabitFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var habitType: HabitType
