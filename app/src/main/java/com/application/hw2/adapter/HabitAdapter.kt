@@ -37,7 +37,6 @@ class HabitAdapter(val onHabitClickListener: (HabitModel, Int) -> Unit) :
         val habit = getItem(position)
         holder.binding.name.text = habit.name
         holder.binding.description.text = habit.description
-        holder.binding.type.text = habit.type.name
         holder.binding.period.text = habit.period
         holder.binding.priority.text = habit.getStars()
         holder.itemView.setBackgroundColor(habit.color)
