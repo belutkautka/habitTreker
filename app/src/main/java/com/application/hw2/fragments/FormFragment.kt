@@ -20,32 +20,30 @@ import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.db.HabitsList
+import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
 
 class FormFragment() : Fragment() {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var habit: HabitModel? = null
-
-    var defaultColor: Int = 0
-    var startColor: Int = 0
-    var endColor: Int = 0
-    var changed: Boolean = false
-    var type: String = ""
+    private var defaultColor: Int = 0
+    private var startColor: Int = 0
+    private var endColor: Int = 0
+    private var changed: Boolean = false
+    private var type: HabitType = HabitType.GOOD
+    private var position: Int = 0
+    private var habitToEdit: HabitModel? = null
 
     private val navController: NavController by lazy {
         Navigation.findNavController(requireView())
     }
-    private var position: Int = 0
-    private var habitToEdit:HabitModel? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FormFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -57,20 +55,19 @@ class FormFragment() : Fragment() {
         val description = binding.editDescription
         val priority = binding.editPriotity
         val typeGroup = binding.radioGroup
-        val curentColor = binding.currentColor
+        val currentColor = binding.currentColor
         val count = binding.editCount
         val period = binding.editPeriod
 
         habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
         position = FormFragmentArgs.fromBundle(requireArguments()).position
 
-        type = "GOOD"
-        init(curentColor)
-        initButton(submitButton, name, period, count, description, priority, curentColor)
+        initColor(currentColor)
+        initButton(submitButton, name, period, count, description, priority, currentColor)
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
             if (checkedRadioButton != null && checkedRadioButton.isChecked) {
-                type = checkedRadioButton.text.toString()
+                type = HabitType.valueOf(checkedRadioButton.text.toString())
             }
         }
 
@@ -78,15 +75,8 @@ class FormFragment() : Fragment() {
         if (habitToEdit != null) {
             changed = true
             setHabitData(
-                name,
-                period,
-                count,
-                description,
-                priority,
-                habitToEdit!!,
-                submitButton,
-                typeGroup,
-                curentColor
+                name, period, count, description, priority, habitToEdit!!,
+                submitButton, typeGroup, currentColor
             )
         } else {
             submitButton.text = resources.getText(R.string.add, null)
@@ -105,7 +95,7 @@ class FormFragment() : Fragment() {
         period.setText(changedHabit.periodicity, TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
-            if (view is RadioButton && view.text == changedHabit.type) {
+            if (view is RadioButton && view.text == changedHabit.type.name) {
                 view.isChecked = true
                 return@forEach
             }
@@ -117,58 +107,49 @@ class FormFragment() : Fragment() {
         hsv.text = ColorPicker.colorToHsvString(changedHabit.color)
     }
 
-    fun init(curentColor: View) {
+    private fun initColor(currentColor: View) {
         defaultColor = resources.getColor(R.color.white, null)
         startColor = resources.getColor(R.color.orange, null)
         endColor = resources.getColor(R.color.gradient_purple, null)
 
         val defaultButton = binding.toWhite
-        curentColor.setBackgroundColor(defaultColor)
+        currentColor.setBackgroundColor(defaultColor)
         val rgb = binding.rgb
         val hsv = binding.hsv
         rgb.text = ColorPicker.colorToRgbString(defaultColor)
         hsv.text = ColorPicker.colorToHsvString(defaultColor)
         defaultButton.setOnClickListener {
-            curentColor.setBackgroundColor(defaultColor)
+            currentColor.setBackgroundColor(defaultColor)
             rgb.text = ColorPicker.colorToRgbString(defaultColor)
             hsv.text = ColorPicker.colorToHsvString(defaultColor)
         }
     }
 
-    fun initButton(
+    private fun initButton(
         submitButton: Button, name: EditText, period: EditText, count: EditText,
-        description: EditText, priority: Spinner, curentColor: View
+        description: EditText, priority: Spinner, currentColor: View
     ) {
         submitButton.setOnClickListener {
-            val isValidate =
-                validateEditView(name) && validateEditView(description) && validateEditView(count) && validateEditView(
-                    period
-                )
+            val isValidate = validateEditView(name) && validateEditView(description)
+                    && validateEditView(count) && validateEditView(period)
             if (isValidate) {
                 val habit = HabitModel(
                     name.text.toString(), description.text.toString(),
                     priority.selectedItem.toString().toInt(),
                     type, count.text.toString().toInt(), period.text.toString()
                 )
-                habit.color = getBackgroundColor(curentColor)
+                habit.color = getBackgroundColor(currentColor)
                 if (changed) {
                     HabitsList.insertIntoPosition(habit, position)
                 } else {
                     HabitsList.insertToEnd(habit)
                 }
                 navController.popBackStack()
-//                val fragment =
-//                    parentFragmentManager.findFragmentByTag("MAIN_FRAGMENT") as MainFragment
-//                fragment.updateFragments()
-//                parentFragmentManager.beginTransaction()
-//                    .show(fragment)
-//                    .remove(this)
-//                    .commit()
             }
         }
     }
 
-    fun validateEditView(view: EditText): Boolean {
+    private fun validateEditView(view: EditText): Boolean {
         if (view.text.toString().isEmpty()) {
             view.error = resources.getText(R.string.error, null)
             return false
@@ -176,7 +157,7 @@ class FormFragment() : Fragment() {
         return true
     }
 
-    fun getBackgroundColor(view: View): Int {
+    private fun getBackgroundColor(view: View): Int {
         val drawable = view.background
         return if (drawable is ColorDrawable) {
             drawable.color
@@ -185,23 +166,24 @@ class FormFragment() : Fragment() {
         }
     }
 
-    fun calculateColors() {
+    private fun calculateColors() {
         super.onResume()
         val rgb = binding.rgb
         val hsv = binding.hsv
         val linearLayout = binding.gradient
         linearLayout.post {
-        val w = linearLayout.width;
-        val curentColor = binding.currentColor
-        for (i in 0 until linearLayout.childCount) {
-            val childView = linearLayout.getChildAt(i)
-            childView.tag = ColorPicker.getColor(childView, w, startColor, endColor)
-            childView.setOnClickListener { view ->
-                val colorTag = view.tag.toString().toInt()
-                curentColor.setBackgroundColor(colorTag)
-                rgb.text = ColorPicker.colorToRgbString(colorTag)
-                hsv.text = ColorPicker.colorToHsvString(colorTag)
+            val w = linearLayout.width;
+            val currentColor = binding.currentColor
+            for (i in 0 until linearLayout.childCount) {
+                val childView = linearLayout.getChildAt(i)
+                childView.tag = ColorPicker.getColor(childView, w, startColor, endColor)
+                childView.setOnClickListener { view ->
+                    val colorTag = view.tag.toString().toInt()
+                    currentColor.setBackgroundColor(colorTag)
+                    rgb.text = ColorPicker.colorToRgbString(colorTag)
+                    hsv.text = ColorPicker.colorToHsvString(colorTag)
+                }
             }
-        }}
+        }
     }
 }

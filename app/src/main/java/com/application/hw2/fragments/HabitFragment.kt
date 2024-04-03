@@ -17,8 +17,8 @@ class HabitFragment() : Fragment() {
     private val binding get() = _binding!!
     private lateinit var habitType: HabitType
 
-    lateinit var adapter: HabitAdapter
-    lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: HabitAdapter
+    private lateinit var recyclerView: RecyclerView
 
     companion object {
         fun newInstance() = HabitFragment()
@@ -52,6 +52,6 @@ class HabitFragment() : Fragment() {
         })
 
         recyclerView.adapter = adapter
-        adapter.submitList(HabitsList.selectHabitsByType(habitType.name))
+        adapter.submitList(HabitsList.selectHabitsByType(habitType))
     }
 }
