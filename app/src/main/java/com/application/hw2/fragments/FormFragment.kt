@@ -3,7 +3,6 @@ package com.application.hw2.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +16,10 @@ import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.navArgs
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.db.HabitsList
-import com.application.hw2.enums.Keys
 import com.application.hw2.model.HabitModel
 
 class FormFragment() : Fragment() {

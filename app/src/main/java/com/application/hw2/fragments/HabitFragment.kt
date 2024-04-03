@@ -45,7 +45,7 @@ class HabitFragment() : Fragment() {
 
     private fun initial() {
         recyclerView = binding.recyclerView
-        adapter = HabitAdapter(this, onHabitClickListener = { habit, position ->
+        adapter = HabitAdapter(onHabitClickListener = { habit, position ->
             val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
             action.habitToEdit = habit
             action.position = position
