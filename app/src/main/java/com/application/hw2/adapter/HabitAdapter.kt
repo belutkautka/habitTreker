@@ -48,9 +48,9 @@ class HabitAdapter(
         holder.binding.type.text = habit.type
         holder.binding.period.text = habit.period
         holder.binding.priority.text = habit.getStars()
+        holder.itemView.setBackgroundColor(habit.color)
         holder.itemView.setOnClickListener {
             onHabitClickListener(habit, position)
         }
-
     }
 }
