@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
@@ -56,7 +57,13 @@ class HabitFragment() : Fragment() {
 
     private fun initial() {
         recyclerView = binding.recyclerView
-        adapter = HabitAdapter(this)
+        adapter = HabitAdapter(this, onHabitClickListener = { habit, position ->
+            val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit(
+                arg1 = habit, arg2 = position
+            )
+
+            Navigation.findNavController(requireView()).navigate(action)
+        })
         recyclerView.adapter = adapter
         adapter.submitList(
             HabitsList.selectHabitsByType(
