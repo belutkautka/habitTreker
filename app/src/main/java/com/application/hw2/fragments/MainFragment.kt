@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.application.hw2.R
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.db.HabitsList
+import com.application.hw2.enums.HabitType
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -31,7 +32,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         if (fragments.isEmpty()) {
             val fragmentGOOD = HabitFragment.newInstance()
@@ -63,22 +64,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         TabLayoutMediator(binding.tab,viewPager){ tab,pos -> tab.text = tabTitle[pos]}.attach()
     }
 
-    fun updateFragments() {
-        fragments[0].update()
-        fragments[1].update()
-        super.onResume()
-    }
-
     companion object {
-//        const val FRAGMENT_TAG = "MAIN_FRAGMENT"
         const val BUNDLE_KEY = "HABIT_TYPE_KEY"
-
-//        fun newInstance() = MainFragment()
-    }
-
-    enum class HabitType {
-        GOOD,
-        BAD
     }
 
     private class MainPagerAdapter(fragment: Fragment, val fragments: List<HabitFragment>) :

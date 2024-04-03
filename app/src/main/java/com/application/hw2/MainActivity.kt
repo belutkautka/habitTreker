@@ -2,9 +2,7 @@ package com.application.hw2
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -38,13 +36,4 @@ class MainActivity : AppCompatActivity() {
             navController.setGraph(R.navigation.navigation_graph)
         }
     }
-
-//    override fun onBackPressed() {
-//        if (binding.navigationDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-//            binding.navigationDrawerLayout.closeDrawer(GravityCompat.START)
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
-
 }
