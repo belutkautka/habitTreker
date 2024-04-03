@@ -3,6 +3,7 @@ package com.application.hw2.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
@@ -27,7 +29,6 @@ class FormFragment() : Fragment() {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private var position: Int = 0
     private var habit: HabitModel? = null
 
     var defaultColor: Int = 0
@@ -39,12 +40,8 @@ class FormFragment() : Fragment() {
     private val navController: NavController by lazy {
         Navigation.findNavController(requireView())
     }
-//    private val habitToEdit: HabitModel? by lazy {
-//        FragmentAddEditArgs.fromBundle(requireArguments()).habitToEdit
-//    }
-//    private val positionArg: Int? by lazy {
-//        FragmentAddEditArgs.fromBundle(requireArguments()).position
-//    }
+    private var position: Int = 0
+    private var habitToEdit:HabitModel? = null
 
     companion object {
         fun newInstance() = FormFragment()
@@ -59,11 +56,11 @@ class FormFragment() : Fragment() {
 //        habitToEdit?.let{
 //            habitNameAddAndEdit.setText(it.title)
 //            habitDescriptionAddAndEdit.setText((it.description))
-
-        arguments?.apply {
-            position = this.getInt(Keys.HABIT_POSITION.name)
-            habit = this.getSerializable(Keys.HABIT_TO_CHANGE.name) as? HabitModel
-        }
+//
+//        arguments?.apply {
+//            position = this.getInt(Keys.HABIT_POSITION.name)
+//            habit = this.getSerializable(Keys.HABIT_TO_CHANGE.name) as? HabitModel
+//        }
 
         _binding = FormFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -79,8 +76,12 @@ class FormFragment() : Fragment() {
         val curentColor = binding.currentColor
         val count = binding.editCount
         val period = binding.editPeriod
-        type = "GOOD"
 
+        habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
+        position = FormFragmentArgs.fromBundle(requireArguments()).position
+        Log.d("habitToEdit", habitToEdit.toString())
+
+        type = "GOOD"
         init(curentColor)
         initButton(submitButton, name, period, count, description, priority, curentColor)
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -91,7 +92,7 @@ class FormFragment() : Fragment() {
         }
 
         changed = false
-        if (habit != null) {
+        if (habitToEdit != null) {
             changed = true
             setHabitData(
                 name,
@@ -99,7 +100,7 @@ class FormFragment() : Fragment() {
                 count,
                 description,
                 priority,
-                habit!!,
+                habitToEdit!!,
                 submitButton,
                 typeGroup,
                 curentColor

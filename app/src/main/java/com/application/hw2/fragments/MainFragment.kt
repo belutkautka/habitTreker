@@ -51,15 +51,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = binding.fabButton
-//        fab.setOnClickListener {
-//            val fragment = FormFragment.newInstance()
-//            Log.d("TAG", this.tag.toString())
-//            parentFragmentManager
-//                .beginTransaction()
-//                .hide(this)
-//                .add(R.id.mainFrameLayout, fragment, "FORM_FRAGMENT")// TODO вынести теги
-//                .commit()
-//        }
 
         fab.setOnClickListener {
             val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()

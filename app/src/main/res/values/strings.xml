@@ -3,7 +3,8 @@
     <string name="add">Добавить</string>
     <string name="default_type">Учеба</string>
     <string name="error">Заполни меня</string>
-    <string name="app_name">hw2</string>
+    <string name="app_name">Трекер привычек</string>
+    <string name="about_app">О приложении</string>
     <string-array name="spinner_items">
         <item>1</item>
         <item>2</item>

@@ -6,7 +6,7 @@
     app:startDestination="@id/fragmentMain">
     <fragment
         android:id="@+id/fragmentMain"
-        android:label="My habits"
+        android:label="@string/app_name"
         android:name="com.application.hw2.fragments.MainFragment"
         tools:layout="@layout/main_fragment" >
         <action
@@ -20,7 +20,7 @@
             <argument
                 android:name="arg2"
                 app:argType="integer"
-                android:defaultValue="1" />
+                android:defaultValue="0" />
         </action>
         <action
             android:id="@+id/action_fragmentMain_to_fragmentAbout"
@@ -46,6 +46,6 @@
     <fragment
         android:name="com.application.hw2.fragments.InfoFragment"
         android:id="@+id/aboutFragment"
-        android:label="about_app"
+        android:label="@string/about_app"
         tools:layout="@layout/about"/>
 </navigation>
