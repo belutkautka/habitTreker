@@ -5,6 +5,7 @@
     <string name="error">Заполни меня</string>
     <string name="app_name">Трекер привычек</string>
     <string name="about_app">О приложении</string>
+    <string name="about">Какая-то информация о приложении</string>
     <string-array name="spinner_items">
         <item>1</item>
         <item>2</item>
@@ -12,8 +13,18 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-    <string name="open_drawer">Open Drawer</string>
-    <string name="close_drawer">Close Drawer</string>
-    <string name="label_add">Adding habit</string>
-    <string name="label_edit">Editing habit</string>
+    <string name="label_add">Добавление привычки</string>
+    <string name="label_edit">Редактирование привычки</string>
+<!-- Значения для формы-->
+    <string name="name">Название</string>
+    <string name="editName">Введите название привычки</string>
+    <string name="description">Описание</string>
+    <string name="editDescription">Введите описание привычки</string>
+    <string name="period">Период</string>
+    <string name="in"> в </string>
+    <string name="editPeriod">день</string>
+    <string name="priotity">Срочность</string>
+    <string name="type">Тип</string>
+    <string name="color">Выбор цвета</string>
+    <string name="defaultColor">Цвет по умолчанию</string>
 </resources>

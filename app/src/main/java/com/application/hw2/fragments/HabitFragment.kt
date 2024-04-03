@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
 import com.application.hw2.db.HabitsList
@@ -48,6 +49,7 @@ class HabitFragment() : Fragment() {
             val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
             action.habitToEdit = habit
             action.position = position
+            action.label = getString(R.string.label_edit)
             Navigation.findNavController(requireView()).navigate(action)
         })
 

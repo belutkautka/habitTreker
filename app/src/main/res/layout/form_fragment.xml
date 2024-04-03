@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="top"
@@ -19,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="end"
-            android:text="Название"
+            android:text="@string/name"
             android:textSize="16sp" />
 
         <EditText
@@ -28,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"
-            android:hint="Введите название привычки"
+            android:hint="@string/editName"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -47,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="end"
-            android:text="Описание"
+            android:text="@string/description"
             android:textSize="16sp" />
 
         <EditText
@@ -56,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"
-            android:hint="Введите описание привычки"
+            android:hint="@string/editDescription"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -75,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="end"
-            android:text="Период"
+            android:text="@string/period"
             android:textSize="16sp" />
 
         <EditText
@@ -95,14 +94,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text=" в " />
+            android:text="@string/in" />
 
         <EditText
             android:id="@+id/editPeriod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:hint="день"
+            android:hint="@string/editPeriod"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -121,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="end"
-            android:text="Срочность"
+            android:text="@string/priotity"
             android:textSize="16sp" />
 
         <Spinner
@@ -145,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:gravity="end"
-            android:text="Тип"
+            android:text="@string/type"
             android:textSize="16sp" />
 
         <RadioGroup
@@ -181,7 +180,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
         android:gravity="end"
-        android:text="Выбор цвета"
+        android:text="@string/color"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -222,7 +221,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/gray"
-                android:text="Цвет по умолчанию"></Button>
+                android:text="@string/defaultColor"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -282,5 +281,5 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/purple"
-        android:text="Добавить"></Button>
+        android:text="@string/add"></Button>
 </LinearLayout>
