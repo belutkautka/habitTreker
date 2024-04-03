@@ -43,25 +43,12 @@ class FormFragment() : Fragment() {
     private var position: Int = 0
     private var habitToEdit:HabitModel? = null
 
-    companion object {
-        fun newInstance() = FormFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//
-//        habitToEdit?.let{
-//            habitNameAddAndEdit.setText(it.title)
-//            habitDescriptionAddAndEdit.setText((it.description))
-//
-//        arguments?.apply {
-//            position = this.getInt(Keys.HABIT_POSITION.name)
-//            habit = this.getSerializable(Keys.HABIT_TO_CHANGE.name) as? HabitModel
-//        }
-
         _binding = FormFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -79,7 +66,6 @@ class FormFragment() : Fragment() {
 
         habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
         position = FormFragmentArgs.fromBundle(requireArguments()).position
-        Log.d("habitToEdit", habitToEdit.toString())
 
         type = "GOOD"
         init(curentColor)
@@ -128,6 +114,10 @@ class FormFragment() : Fragment() {
             }
         }
         curentColor.setBackgroundColor(changedHabit.color)
+        val rgb = binding.rgb
+        val hsv = binding.hsv
+        rgb.text = ColorPicker.colorToRgbString(changedHabit.color)
+        hsv.text = ColorPicker.colorToHsvString(changedHabit.color)
     }
 
     fun init(curentColor: View) {
@@ -136,9 +126,12 @@ class FormFragment() : Fragment() {
         endColor = resources.getColor(R.color.gradient_purple, null)
 
         val defaultButton = binding.toWhite
+        curentColor.setBackgroundColor(defaultColor)
+        val rgb = binding.rgb
+        val hsv = binding.hsv
+        rgb.text = ColorPicker.colorToRgbString(defaultColor)
+        hsv.text = ColorPicker.colorToHsvString(defaultColor)
         defaultButton.setOnClickListener {
-            val rgb = binding.rgb
-            val hsv = binding.hsv
             curentColor.setBackgroundColor(defaultColor)
             rgb.text = ColorPicker.colorToRgbString(defaultColor)
             hsv.text = ColorPicker.colorToHsvString(defaultColor)
@@ -213,7 +206,5 @@ class FormFragment() : Fragment() {
                 hsv.text = ColorPicker.colorToHsvString(colorTag)
             }
         }}
-        rgb.text = ColorPicker.colorToRgbString(defaultColor)
-        hsv.text = ColorPicker.colorToRgbString(defaultColor)
     }
 }
