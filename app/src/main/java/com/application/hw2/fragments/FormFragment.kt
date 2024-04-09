@@ -34,7 +34,6 @@ class FormFragment : Fragment() {
     private var endColor: Int = 0
     private var changed: Boolean = false
     private var type: HabitType = HabitType.GOOD
-    private var position: Int = 0
     private var habitToEdit: HabitModel? = null
 
     private val navController: NavController by lazy {
@@ -63,7 +62,6 @@ class FormFragment : Fragment() {
         val period = binding.editPeriod
 
         habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
-        position = FormFragmentArgs.fromBundle(requireArguments()).position
 
         initColor(currentColor)
         initButton(submitButton, name, period, count, description, priority, currentColor)
