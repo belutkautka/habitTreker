@@ -18,14 +18,28 @@ class MainVM : ViewModel() {
     }
 
     fun addHabit(newHabit: HabitModel) {
+        _habits.value = HabitsList.habits
         HabitsList.insertToEnd(newHabit)
     }
 
     fun updateHabit(oldHabit: HabitModel, newHabit: HabitModel) {
+        _habits.value = HabitsList.habits
         HabitsList.updateHabit(oldHabit, newHabit)
     }
 
     fun selectHabitsByType(type: HabitType): List<HabitModel> {
-        return HabitsList.selectHabitsByType(type)
+        return habits.value!!.filter { habit -> habit.type == type }
+    }
+
+    fun sortByPriority(desc: Boolean) {
+        if (habits.value!!.isEmpty())
+            return
+        if (!desc) {
+            val sortedHabits = _habits.value?.sortedBy { it.priority }
+            _habits.value = sortedHabits?.toMutableList()
+        } else {
+            val sortedHabits = _habits.value?.sortedByDescending { it.priority }
+            _habits.value = sortedHabits?.toMutableList()
+        }
     }
 }
