@@ -21,14 +21,13 @@
             android:layout_height="match_parent"
             android:text="BAD"/>
     </com.google.android.material.tabs.TabLayout>
+        <include layout="@layout/button_sheet"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/MainViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     </LinearLayout>
-
-    <include layout="@layout/button_sheet"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabButton"

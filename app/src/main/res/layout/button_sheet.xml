@@ -9,11 +9,10 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheetTitleCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:elevation="0dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,5 +29,47 @@
             android:textColor="@color/dark_purple"
             android:textSize="20sp" />
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/sort"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:text="@string/button_sheet_sort"
+            android:textColor="@color/dark_purple"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/findAndSortTextView" />
+
+        <Button
+            android:id="@+id/up"
+            android:layout_width="76dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="55dp"
+            android:minHeight="0dp"
+            android:padding="0px"
+            android:text="⇧"
+            android:textColor="@color/white"
+            android:textSize="40px"
+            android:textStyle="bold"
+            app:iconPadding="0px"
+            app:layout_constraintStart_toEndOf="@+id/sort"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/down"
+            android:layout_width="76dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="55dp"
+            android:minHeight="0dp"
+            android:padding="0px"
+            android:text="⇩ "
+            android:textColor="@color/white"
+            android:textSize="40px"
+            android:textStyle="bold"
+            app:iconPadding="0px"
+            app:layout_constraintStart_toEndOf="@+id/up"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
