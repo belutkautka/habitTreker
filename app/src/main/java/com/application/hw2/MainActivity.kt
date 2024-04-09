@@ -1,50 +1,39 @@
 package com.application.hw2
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.application.hw2.adapter.HabitAdapter
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.application.hw2.databinding.ActivityMainBinding
-import com.application.hw2.db.HabitsList
-import com.application.hw2.enums.Keys
-import com.application.hw2.model.HabitModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var adapter: HabitAdapter
-    lateinit var recyclerView: RecyclerView
+
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initial()
-    }
 
-    private fun initial() {
-        recyclerView = binding.recyclerView
-        adapter = HabitAdapter { habit: HabitModel, position: Int ->
-            var intent = Intent(this, FormActivity::class.java).apply {
-                putExtra(Keys.HABIT_POSITION.name, position)
-                putExtra(Keys.HABIT_TO_CHANGE.name, habit)
-            }
-            startActivity(intent)
-        }
-        recyclerView.adapter = adapter
-        adapter.submitList(HabitsList.selectAllHabits())
-        val fab: FloatingActionButton = findViewById(R.id.fabButton)
-        fab.setOnClickListener {
-            val intent = Intent(this, FormActivity::class.java)
-            startActivity(intent)
-        }
-    }
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.mainFrameLayout) as NavHostFragment
+        navController = navHostFragment.navController
 
-    override fun onResume() {
-        if (HabitsList.changed) {
-            adapter.submitList(HabitsList.selectAllHabits())
+        val toolbarMainActivity = binding.toolbarMainActivity
+        setSupportActionBar(toolbarMainActivity)
+
+        val appBarConfiguration =
+            AppBarConfiguration(navController.graph, binding.navigationDrawerLayout)
+
+        toolbarMainActivity.setupWithNavController(navController, appBarConfiguration)
+
+        binding.navigationView.setupWithNavController(navController)
+
+        if (savedInstanceState == null) {
+            navController.setGraph(R.navigation.navigation_graph)
         }
-        super.onResume()
     }
 }
