@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
-import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.HabitType
+import com.application.hw2.viewModels.MainVM
 
 class HabitFragment : Fragment() {
     private var _binding: HabitFragmentBinding? = null
     private val binding get() = _binding!!
     private lateinit var habitType: HabitType
+    private lateinit var viewModel: MainVM
 
     private lateinit var adapter: HabitAdapter
     private lateinit var recyclerView: RecyclerView
@@ -35,6 +37,8 @@ class HabitFragment : Fragment() {
         }
 
         _binding = HabitFragmentBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this).get(MainVM::class.java)
         return binding.root
     }
 
@@ -54,6 +58,8 @@ class HabitFragment : Fragment() {
         })
 
         recyclerView.adapter = adapter
-        adapter.submitList(HabitsList.selectHabitsByType(habitType))
+        viewModel.habits.observe(viewLifecycleOwner) { _ ->
+            adapter.submitList(viewModel.selectHabitsByType(habitType))
+        }
     }
 }
