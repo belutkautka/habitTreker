@@ -62,7 +62,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })
 
-        viewModel = ViewModelProvider(requireActivity()).get(MainVM::class.java)
+        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
         return binding.root
     }
 

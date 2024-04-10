@@ -19,17 +19,14 @@ class MainVM : ViewModel() {
     }
 
     fun addHabit(newHabit: HabitModel) {
-        _habits.value = HabitsList.habits
         HabitsList.insertToEnd(newHabit)
+        _habits.value = HabitsList.habits
     }
 
     fun updateHabit(oldHabit: HabitModel, newHabit: HabitModel) {
-        _habits.value = HabitsList.habits
         HabitsList.updateHabit(oldHabit, newHabit)
-    }
-
-    fun selectHabitsByType(type: HabitType): List<HabitModel> {
-        return habits.value!!.filter { habit -> habit.type == type }
+        _habits.value = HabitsList.habits
+        Log.d("sort",_habits.value.toString())
     }
 
     fun sortByPriority(desc: Boolean) {
@@ -38,11 +35,9 @@ class MainVM : ViewModel() {
         if (!desc) {
             val sortedHabits = _habits.value?.sortedBy { it.priority }
             _habits.value = sortedHabits?.toList()
-            Log.d("sort",_habits.value.toString())
         } else {
             val sortedHabits = _habits.value?.sortedByDescending { it.priority }
             _habits.value = sortedHabits?.toList()
-            Log.d("sort",_habits.value.toString())
         }
     }
 }

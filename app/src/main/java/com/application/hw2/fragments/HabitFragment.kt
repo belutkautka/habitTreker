@@ -38,7 +38,7 @@ class HabitFragment : Fragment() {
 
         _binding = HabitFragmentBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(requireActivity()).get(MainVM::class.java)
+        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
         return binding.root
     }
 
@@ -57,8 +57,8 @@ class HabitFragment : Fragment() {
         })
 
         recyclerView.adapter = adapter
-        viewModel.habits.observe(viewLifecycleOwner) { _ ->
-            adapter.submitList(viewModel.selectHabitsByType(habitType))
+        viewModel.habits.observe(viewLifecycleOwner) { habit ->
+            adapter.submitList(habit.filter { habit -> habit.type == habitType })
         }
     }
 }

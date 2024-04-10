@@ -46,7 +46,7 @@ class FormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FormFragmentBinding.inflate(inflater, container, false)
-        mainVM = ViewModelProvider(this).get(MainVM::class.java)
+        mainVM = ViewModelProvider(requireActivity())[MainVM::class.java]
         return binding.root
     }
 

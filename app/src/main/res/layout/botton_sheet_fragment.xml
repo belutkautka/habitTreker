@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/background_light"
-    app:behavior_hideable="true"
+    app:behavior_hideable="false"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
@@ -15,10 +15,12 @@
         android:layout_height="wrap_content"
         android:elevation="0dp"
         app:cardCornerRadius="8dp"
+        android:paddingBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <TextView
             android:id="@+id/findAndSortTextView"
@@ -70,6 +72,37 @@
             app:iconPadding="0px"
             app:layout_constraintStart_toEndOf="@+id/up"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@+id/sort"
+            android:paddingStart="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/searchName"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/editName"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/find"
+                android:layout_width="76dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="4dp"
+                android:minHeight="0dp"
+                android:padding="0px"
+                android:text="@string/find"
+                android:textColor="@color/white"
+                android:textSize="40px"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

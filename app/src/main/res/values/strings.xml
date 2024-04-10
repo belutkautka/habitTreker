@@ -29,4 +29,5 @@
     <string name="defaultColor">Цвет по умолчанию</string>
     <string name="button_sheet_title">Фильтры</string>
     <string name="button_sheet_sort">Сортировка по приоритету</string>
+    <string name="find">Найти</string>
 </resources>
