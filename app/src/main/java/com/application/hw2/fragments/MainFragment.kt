@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -14,6 +15,7 @@ import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
 import com.application.hw2.viewModels.MainVM
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -48,6 +50,18 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
             fragments.add(fragmentBAD)
         }
+
+        val bottomSheet = binding.bottomSheet.bottomSheetMainFragment;
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        // Установка высоты BottomSheet до первого TextView
+        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                bottomSheet.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                val textViewHeight =  binding.bottomSheet.findAndSortTextView.height
+                bottomSheetBehavior.setPeekHeight(textViewHeight, false)
+            }
+        })
+
         viewModel = ViewModelProvider(requireActivity()).get(MainVM::class.java)
         return binding.root
     }
@@ -62,8 +76,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
 
 
-        val upButton = binding.buttonSheetFragment.up
-        val downButton = binding.buttonSheetFragment.down
+        val upButton = binding.bottomSheet.up
+        val downButton = binding.bottomSheet.down
         upButton.setOnClickListener {
             viewModel.sortByPriority(false)
         }
