@@ -38,7 +38,7 @@ class HabitFragment : Fragment() {
 
         _binding = HabitFragmentBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(MainVM::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(MainVM::class.java)
         return binding.root
     }
 
