@@ -1,5 +1,6 @@
 package com.application.hw2.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,10 @@ import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
 
 class MainVM : ViewModel() {
-    private val _habits = MutableLiveData<MutableList<HabitModel>>()
+    private val _habits = MutableLiveData<List<HabitModel>>()
 
     // LiveData для наблюдения за изменениями
-    val habits: LiveData<MutableList<HabitModel>> = _habits
+    val habits: LiveData<List<HabitModel>> = _habits
 
     init {
         _habits.value = HabitsList.habits
@@ -36,10 +37,12 @@ class MainVM : ViewModel() {
             return
         if (!desc) {
             val sortedHabits = _habits.value?.sortedBy { it.priority }
-            _habits.value = sortedHabits?.toMutableList()
+            _habits.value = sortedHabits?.toList()
+            Log.d("sort",_habits.value.toString())
         } else {
             val sortedHabits = _habits.value?.sortedByDescending { it.priority }
-            _habits.value = sortedHabits?.toMutableList()
+            _habits.value = sortedHabits?.toList()
+            Log.d("sort",_habits.value.toString())
         }
     }
 }
