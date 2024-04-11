@@ -85,6 +85,10 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             viewModel.sortByPriority(true)
         }
 
+        binding.bottomSheet.find.setOnClickListener {
+            viewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
+        }
+
         viewPager = binding.MainViewPager
         val pagerAdapter = MainPagerAdapter(this, fragments)
         viewPager.adapter = pagerAdapter

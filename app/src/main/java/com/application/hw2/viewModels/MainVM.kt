@@ -11,7 +11,6 @@ import com.application.hw2.model.HabitModel
 class MainVM : ViewModel() {
     private val _habits = MutableLiveData<List<HabitModel>>()
 
-    // LiveData для наблюдения за изменениями
     val habits: LiveData<List<HabitModel>> = _habits
 
     init {
@@ -39,5 +38,9 @@ class MainVM : ViewModel() {
             val sortedHabits = _habits.value?.sortedByDescending { it.priority }
             _habits.value = sortedHabits?.toList()
         }
+    }
+
+    fun searchHabits(name: String) {
+            _habits.value = HabitsList.habits.filter { habit ->  habit.name.contains(name)}.toList()
     }
 }
