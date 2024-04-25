@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
@@ -12,11 +14,14 @@ import com.application.hw2.R
 import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
+import com.application.hw2.viewModels.MainVM
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
+    private lateinit var viewModel: MainVM
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = HabitType.values()
@@ -45,17 +50,43 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
             fragments.add(fragmentBAD)
         }
+
+        val bottomSheet = binding.bottomSheet.bottomSheetMainFragment;
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        // Установка высоты BottomSheet до первого TextView
+        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                bottomSheet.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                val textViewHeight =  binding.bottomSheet.findAndSortTextView.height
+                bottomSheetBehavior.setPeekHeight(textViewHeight, false)
+            }
+        })
+
+        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton = binding.fabButton
-
         fab.setOnClickListener {
             val action = MainFragmentDirections.actionFragmentMainToFragmentAddEdit()
             action.label = getString(R.string.label_add)
             navController.navigate(action)
+        }
+
+
+        val upButton = binding.bottomSheet.up
+        val downButton = binding.bottomSheet.down
+        upButton.setOnClickListener {
+            viewModel.sortByPriority(false)
+        }
+        downButton.setOnClickListener {
+            viewModel.sortByPriority(true)
+        }
+
+        binding.bottomSheet.find.setOnClickListener {
+            viewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
         }
 
         viewPager = binding.MainViewPager

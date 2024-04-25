@@ -14,25 +14,26 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
-import com.application.hw2.db.HabitsList
 import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
+import com.application.hw2.viewModels.MainVM
 
 class FormFragment : Fragment() {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var mainVM: MainVM
 
     private var defaultColor: Int = 0
     private var startColor: Int = 0
     private var endColor: Int = 0
     private var changed: Boolean = false
     private var type: HabitType = HabitType.GOOD
-    private var position: Int = 0
     private var habitToEdit: HabitModel? = null
 
     private val navController: NavController by lazy {
@@ -45,6 +46,7 @@ class FormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FormFragmentBinding.inflate(inflater, container, false)
+        mainVM = ViewModelProvider(requireActivity())[MainVM::class.java]
         return binding.root
     }
 
@@ -60,7 +62,6 @@ class FormFragment : Fragment() {
         val period = binding.editPeriod
 
         habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
-        position = FormFragmentArgs.fromBundle(requireArguments()).position
 
         initColor(currentColor)
         initButton(submitButton, name, period, count, description, priority, currentColor)
@@ -140,9 +141,9 @@ class FormFragment : Fragment() {
                 )
                 habit.color = getBackgroundColor(currentColor)
                 if (changed) {
-                    HabitsList.insertIntoPosition(habit, position)
+                    mainVM.updateHabit(habitToEdit!!, habit)
                 } else {
-                    HabitsList.insertToEnd(habit)
+                    mainVM.addHabit(habit)
                 }
                 navController.popBackStack()
             }

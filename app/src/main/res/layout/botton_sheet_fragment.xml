@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetMainFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light"
+    app:behavior_hideable="false"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheetTitleCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardCornerRadius="8dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/findAndSortTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/button_sheet_title"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/sort"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:text="@string/button_sheet_sort"
+            android:textColor="@color/dark_purple"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/findAndSortTextView" />
+
+        <ImageButton
+            android:id="@+id/up"
+            android:layout_width="27dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="55dp"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:padding="0px"
+            android:src="@drawable/baseline_arrow_upward_24"
+            app:iconPadding="0px"
+            app:layout_constraintStart_toEndOf="@+id/sort"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/down"
+            android:layout_width="27dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="55dp"
+            android:background="@null"
+            android:minHeight="0dp"
+            android:padding="0px"
+            android:src="@drawable/baseline_arrow_downward_24"
+            app:iconPadding="0px"
+            app:layout_constraintStart_toEndOf="@+id/up"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@+id/sort"
+            android:paddingStart="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/searchName"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/editName"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/find"
+                android:layout_width="76dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="4dp"
+                android:minHeight="0dp"
+                android:padding="0px"
+                android:text="@string/find"
+                android:textColor="@color/white"
+                android:textSize="40px"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,10 +27,6 @@
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
-            android:name="position"
-            app:argType="integer"
-            android:defaultValue="1"/>
-        <argument
             android:name="label"
             app:argType="string"
             android:defaultValue=""/>
