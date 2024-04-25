@@ -8,23 +8,23 @@ import com.application.hw2.model.HabitModel;
 interface HabitsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHabit(habit:HabitModel)
+    suspend fun insertHabit(habit:HabitModel)
 
     @Query("SELECT * from HabitModel ORDER BY id DESC")
-    fun selectAllHabits(): List<HabitModel>
+    suspend fun selectAllHabits(): List<HabitModel>
 
     @Query("SELECT * from HabitModel WHERE type = 0 ORDER BY id DESC")
-    fun selectBadHabits(): List<HabitModel>
+    suspend fun selectBadHabits(): List<HabitModel>
 
     @Query("SELECT * FROM HabitModel WHERE type = 1 ORDER BY id DESC")
-    fun selectGoodHabits(): List<HabitModel>
+    suspend fun selectGoodHabits(): List<HabitModel>
     @Query("SELECT * FROM HabitModel WHERE name LIKE '%' || :searchName || '%' ORDER BY id DESC")
-    fun searchHabits(searchName:String): List<HabitModel>
+    suspend fun searchHabits(searchName:String): List<HabitModel>
 
     @Delete
-    fun deleteHabit(habit: HabitModel)
+    suspend fun deleteHabit(habit: HabitModel)
 
     @Update
-    fun updateHabit(habit: HabitModel)
+    suspend fun updateHabit(habit: HabitModel)
 
 }

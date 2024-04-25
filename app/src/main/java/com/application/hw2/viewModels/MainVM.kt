@@ -4,8 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
 import com.application.hw2.model.HabitModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainVM(application: Application) : AndroidViewModel(application) {
     private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
@@ -16,17 +19,27 @@ class MainVM(application: Application) : AndroidViewModel(application) {
     val habits: LiveData<List<HabitModel>> = _habits
 
     init {
-        _habits.value = habitsDao.selectAllHabits().toMutableList()
+        viewModelScope.launch(Dispatchers.IO) {
+            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
+        }
     }
 
     fun addHabit(habit: HabitModel) {
-        habitsDao.insertHabit(habit)
-        _habits.value = habitsDao.selectAllHabits().toMutableList()
+        viewModelScope.launch(Dispatchers.IO) {
+            habitsDao.insertHabit(habit)
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
+        }
     }
 
     fun updateHabit(habit: HabitModel) {
-        habitsDao.updateHabit(habit)
-        _habits.value = habitsDao.selectAllHabits().toMutableList()
+        viewModelScope.launch(Dispatchers.IO) {
+            habitsDao.updateHabit(habit)
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
+        }
     }
 
     fun sortByPriority(desc: Boolean) {
@@ -42,6 +55,8 @@ class MainVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun searchHabits(name: String) {
-        _habits.value = habitsDao.searchHabits(name)
+        viewModelScope.launch(Dispatchers.Main) {
+            _habits.value = habitsDao.searchHabits(name)
+        }
     }
 }
