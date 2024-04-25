@@ -33,7 +33,7 @@ class FormFragment : Fragment() {
     private var startColor: Int = 0
     private var endColor: Int = 0
     private var changed: Boolean = false
-    private var type: HabitType = HabitType.GOOD
+    private var type: Int = 0
     private var habitToEdit: HabitModel? = null
 
     private val navController: NavController by lazy {
@@ -68,7 +68,11 @@ class FormFragment : Fragment() {
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
             if (checkedRadioButton != null && checkedRadioButton.isChecked) {
-                type = HabitType.valueOf(checkedRadioButton.text.toString())
+                type = if(checkedRadioButton.text.toString()==HabitType.GOOD.toString()){
+                    1
+                } else{
+                    0
+                }
             }
         }
 
@@ -96,7 +100,8 @@ class FormFragment : Fragment() {
         period.setText(changedHabit.periodicity, TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
-            if (view is RadioButton && view.text == changedHabit.type.name) {
+            if (view is RadioButton && ((view.text == HabitType.GOOD.name&&changedHabit.type==1)||
+                (view.text == HabitType.BAD.name&&changedHabit.type==0))) {
                 view.isChecked = true
                 return@forEach
             }
@@ -135,13 +140,14 @@ class FormFragment : Fragment() {
                     && validateEditView(count) && validateEditView(period)
             if (isValidate) {
                 val habit = HabitModel(
+                    habitToEdit?.id,
                     name.text.toString(), description.text.toString(),
                     priority.selectedItem.toString().toInt(),
                     type, count.text.toString().toInt(), period.text.toString()
                 )
                 habit.color = getBackgroundColor(currentColor)
                 if (changed) {
-                    mainVM.updateHabit(habitToEdit!!, habit)
+                    mainVM.updateHabit(habit)
                 } else {
                     mainVM.addHabit(habit)
                 }

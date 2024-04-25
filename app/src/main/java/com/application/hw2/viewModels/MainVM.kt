@@ -1,31 +1,32 @@
 package com.application.hw2.viewModels
 
-import android.util.Log
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.application.hw2.db.HabitsList
-import com.application.hw2.enums.HabitType
+import com.application.hw2.db.AppDatabase
 import com.application.hw2.model.HabitModel
 
-class MainVM : ViewModel() {
+class MainVM(application: Application) : AndroidViewModel(application) {
+    private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
+    private val habitsDao = appDatabase.habitsDao()
+
     private val _habits = MutableLiveData<List<HabitModel>>()
 
     val habits: LiveData<List<HabitModel>> = _habits
 
     init {
-        _habits.value = HabitsList.habits
+        _habits.value = habitsDao.selectAllHabits().toMutableList()
     }
 
-    fun addHabit(newHabit: HabitModel) {
-        HabitsList.insertToEnd(newHabit)
-        _habits.value = HabitsList.habits
+    fun addHabit(habit: HabitModel) {
+        habitsDao.insertHabit(habit)
+        _habits.value = habitsDao.selectAllHabits().toMutableList()
     }
 
-    fun updateHabit(oldHabit: HabitModel, newHabit: HabitModel) {
-        HabitsList.updateHabit(oldHabit, newHabit)
-        _habits.value = HabitsList.habits
-        Log.d("sort",_habits.value.toString())
+    fun updateHabit(habit: HabitModel) {
+        habitsDao.updateHabit(habit)
+        _habits.value = habitsDao.selectAllHabits().toMutableList()
     }
 
     fun sortByPriority(desc: Boolean) {
@@ -41,6 +42,6 @@ class MainVM : ViewModel() {
     }
 
     fun searchHabits(name: String) {
-            _habits.value = HabitsList.habits.filter { habit ->  habit.name.contains(name)}.toList()
+        _habits.value = habitsDao.searchHabits(name)
     }
 }

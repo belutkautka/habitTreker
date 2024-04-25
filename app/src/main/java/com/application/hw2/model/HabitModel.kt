@@ -1,24 +1,31 @@
 package com.application.hw2.model
 
 import android.graphics.Color
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import com.application.hw2.enums.HabitType
 import java.io.Serializable
 
+@Entity
 data class HabitModel(
-    val name: String,
-    val description: String,
-    val priority: Int,
-    val type: HabitType,
-    val count: Int,
-    val periodicity: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int?,
+    var name: String,
+    var description: String,
+    var priority: Int,
+    var type: Int,
+    var count: Int,
+    var periodicity: String,
     var color:Int = Color.WHITE
 ) : Serializable {
-    private val starsCount = 5
-    val period: String
+    var starsCount = 5
+    var period: String = ""
         get() = convertToPeriod()
-    private var exceptionsNumbers = intArrayOf(2, 3, 4)
+
 
     private fun convertToPeriod(): String {
+        val exceptionsNumbers = intArrayOf(2, 3, 4)
         if (count in exceptionsNumbers) {
             return "$count раза в $periodicity"
         }
@@ -28,4 +35,21 @@ data class HabitModel(
     fun getStars(): String {
         return "${"★".repeat(priority)}${"☆".repeat(starsCount - priority)}"
     }
+
+//    class ListConverter {
+//        @TypeConverter
+//        fun fromHabits(habits: MutableList<Long>): String {
+//            return habits.joinToString()
+//        }
+//
+//        @TypeConverter
+//        fun toHabits(data: String): MutableList<Long> {
+//            return if (data != "") {
+//                data.split(", ").map { it.toLong() }.toMutableList()
+//            } else {
+//                mutableListOf()
+//            }
+//        }
+//    }
+
 }

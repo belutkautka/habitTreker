@@ -41,12 +41,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         if (fragments.isEmpty()) {
             val fragmentGOOD = HabitFragment.newInstance()
             fragmentGOOD.arguments = Bundle().apply {
-                putSerializable(BUNDLE_KEY, HabitType.GOOD)
+                putInt(BUNDLE_KEY, 1)
             }
             fragments.add(fragmentGOOD)
             val fragmentBAD = HabitFragment.newInstance()
             fragmentBAD.arguments = Bundle().apply {
-                putSerializable(BUNDLE_KEY, HabitType.BAD)
+                putInt(BUNDLE_KEY, 0)
             }
             fragments.add(fragmentBAD)
         }
