@@ -10,7 +10,7 @@ import com.application.hw2.model.HabitModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainVM(application: Application) : AndroidViewModel(application) {
+class FilterVM(application: Application) : AndroidViewModel(application) {
     private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
     private val habitsDao = appDatabase.habitsDao()
 
@@ -24,19 +24,25 @@ class MainVM(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addHabit(habit: HabitModel) {
-        viewModelScope.launch(Dispatchers.IO) {
-            habitsDao.insertHabit(habit)
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
+    fun sortByPriority(desc: Boolean) {
+        if (habits.value!!.isEmpty())
+            return
+        if (!desc) {
+            val sortedHabits = _habits.value?.sortedBy { it.priority }
+            _habits.value = sortedHabits?.toList()
+        } else {
+            val sortedHabits = _habits.value?.sortedByDescending { it.priority }
+            _habits.value = sortedHabits?.toList()
         }
     }
 
-    fun updateHabit(habit: HabitModel) {
-        viewModelScope.launch(Dispatchers.IO) {
-            habitsDao.updateHabit(habit)
+    fun searchHabits(name: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _habits.value = habitsDao.searchHabits(name)
         }
+    }
+
+    fun updateList() {
         viewModelScope.launch(Dispatchers.IO) {
             _habits.postValue(habitsDao.selectAllHabits().toMutableList())
         }

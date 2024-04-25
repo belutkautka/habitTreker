@@ -14,14 +14,14 @@ import com.application.hw2.R
 import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
-import com.application.hw2.viewModels.MainVM
+import com.application.hw2.viewModels.FilterVM
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
-    private lateinit var viewModel: MainVM
+    private lateinit var viewModel: FilterVM
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = HabitType.values()
@@ -54,15 +54,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val bottomSheet = binding.bottomSheet.bottomSheetMainFragment;
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         // Установка высоты BottomSheet до первого TextView
-        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 bottomSheet.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val textViewHeight =  binding.bottomSheet.findAndSortTextView.height
+                val textViewHeight = binding.bottomSheet.findAndSortTextView.height
                 bottomSheetBehavior.setPeekHeight(textViewHeight, false)
             }
         })
 
-        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
+        viewModel = ViewModelProvider(requireActivity())[FilterVM::class.java]
         return binding.root
     }
 
@@ -93,7 +94,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val pagerAdapter = MainPagerAdapter(this, fragments)
         viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tab, viewPager) { tab, pos ->
-            tab.text = tabTitle[pos].toString() }.attach()
+            tab.text = tabTitle[pos].toString()
+        }.attach()
     }
 
     companion object {

@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
-import com.application.hw2.viewModels.MainVM
+import com.application.hw2.viewModels.FilterVM
 
 class HabitFragment : Fragment() {
     private var _binding: HabitFragmentBinding? = null
     private val binding get() = _binding!!
     private var habitType: Int = 0
-    private lateinit var viewModel: MainVM
+    private lateinit var viewModel: FilterVM
 
     private lateinit var adapter: HabitAdapter
     private lateinit var recyclerView: RecyclerView
@@ -32,12 +32,12 @@ class HabitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         arguments?.apply {
-            habitType = this.getInt(MainFragment.BUNDLE_KEY,0)
+            habitType = this.getInt(MainFragment.BUNDLE_KEY, 0)
         }
 
         _binding = HabitFragmentBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
+        viewModel = ViewModelProvider(requireActivity())[FilterVM::class.java]
         return binding.root
     }
 
@@ -59,5 +59,10 @@ class HabitFragment : Fragment() {
         viewModel.habits.observe(viewLifecycleOwner) { habit ->
             adapter.submitList(habit.filter { habit -> habit.type == habitType })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateList()
     }
 }

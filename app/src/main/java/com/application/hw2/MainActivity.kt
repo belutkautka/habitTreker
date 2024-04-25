@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.application.hw2.databinding.ActivityMainBinding
+import com.application.hw2.viewModels.FilterVM
 import com.application.hw2.viewModels.MainVM
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
 
     private lateinit var viewModel: MainVM
+    private lateinit var filterViewModel: FilterVM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,5 +43,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel = ViewModelProvider(this).get(MainVM::class.java)
+        filterViewModel = ViewModelProvider(this).get(FilterVM::class.java)
     }
 }
