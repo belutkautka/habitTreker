@@ -33,7 +33,7 @@ class FormFragment : Fragment() {
     private var startColor: Int = 0
     private var endColor: Int = 0
     private var changed: Boolean = false
-    private var type: Int = 0
+    private var type: Int = 1
     private var habitToEdit: HabitModel? = null
 
     private val navController: NavController by lazy {
