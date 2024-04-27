@@ -60,9 +60,4 @@ class HabitFragment : Fragment() {
             adapter.submitList(habit.filter { habit -> habit.type == habitType })
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.updateList()
-    }
 }

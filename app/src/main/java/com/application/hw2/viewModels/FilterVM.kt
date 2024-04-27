@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
+import com.application.hw2.db.HabitRepository
 import com.application.hw2.model.HabitModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,14 +14,15 @@ import kotlinx.coroutines.launch
 class FilterVM(application: Application) : AndroidViewModel(application) {
     private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
     private val habitsDao = appDatabase.habitsDao()
+    private val repository: HabitRepository = HabitRepository(habitsDao)
 
-    private val _habits = MutableLiveData<List<HabitModel>>()
+//    private var _habits = MutableLiveData<List<HabitModel>>()
 
-    val habits: LiveData<List<HabitModel>> = _habits
+    lateinit var habits: LiveData<List<HabitModel>>
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
+            habits = repository.allHabits
         }
     }
 
@@ -28,23 +30,17 @@ class FilterVM(application: Application) : AndroidViewModel(application) {
         if (habits.value!!.isEmpty())
             return
         if (!desc) {
-            val sortedHabits = _habits.value?.sortedBy { it.priority }
-            _habits.value = sortedHabits?.toList()
+            val sortedList = repository.allHabits.value?.sortedBy { it.name }
+
+            habits = MutableLiveData(sortedList)
         } else {
-            val sortedHabits = _habits.value?.sortedByDescending { it.priority }
-            _habits.value = sortedHabits?.toList()
+            val sortedList = repository.allHabits.value?.sortedByDescending { it.name }
+            habits = MutableLiveData(sortedList)
         }
     }
 
     fun searchHabits(name: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            _habits.value = habitsDao.searchHabits(name)
-        }
-    }
-
-    fun updateList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _habits.postValue(habitsDao.selectAllHabits().toMutableList())
-        }
+        val filteredList = repository.allHabits.value?.filter { it.name.contains(name, ignoreCase = true) }
+        habits = MutableLiveData(filteredList)
     }
 }
