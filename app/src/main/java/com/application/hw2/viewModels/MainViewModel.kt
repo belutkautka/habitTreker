@@ -10,7 +10,7 @@ import com.application.hw2.db.HabitRepository
 import com.application.hw2.model.HabitModel
 import kotlinx.coroutines.launch
 
-class FilterVM(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
     private val habitsDao = appDatabase.habitsDao()
     private val repository: HabitRepository = HabitRepository(habitsDao)

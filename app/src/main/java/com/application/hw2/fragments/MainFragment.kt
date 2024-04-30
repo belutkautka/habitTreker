@@ -14,14 +14,14 @@ import com.application.hw2.R
 import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
-import com.application.hw2.viewModels.FilterVM
+import com.application.hw2.viewModels.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
-    private lateinit var viewModel: FilterVM
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = HabitType.values()
@@ -63,7 +63,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })
 
-        viewModel = ViewModelProvider(requireActivity())[FilterVM::class.java]
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         return binding.root
     }
 
@@ -80,14 +80,14 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val upButton = binding.bottomSheet.up
         val downButton = binding.bottomSheet.down
         upButton.setOnClickListener {
-            viewModel.sortByPriority(false)
+            mainViewModel.sortByPriority(false)
         }
         downButton.setOnClickListener {
-            viewModel.sortByPriority(true)
+            mainViewModel.sortByPriority(true)
         }
 
         binding.bottomSheet.find.setOnClickListener {
-            viewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
+            mainViewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
         }
 
         viewPager = binding.MainViewPager

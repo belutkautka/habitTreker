@@ -22,12 +22,12 @@ import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
-import com.application.hw2.viewModels.MainVM
+import com.application.hw2.viewModels.FormViewModel
 
 class FormFragment : Fragment() {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var mainVM: MainVM
+    private lateinit var formViewModel: FormViewModel
 
     private var defaultColor: Int = 0
     private var startColor: Int = 0
@@ -45,7 +45,7 @@ class FormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FormFragmentBinding.inflate(inflater, container, false)
-        mainVM = ViewModelProvider(requireActivity())[MainVM::class.java]
+        formViewModel = ViewModelProvider(requireActivity())[FormViewModel::class.java]
         return binding.root
     }
 
@@ -146,7 +146,7 @@ class FormFragment : Fragment() {
                     periodicity = period.text.toString(),
                     color = getBackgroundColor(currentColor)
                 )
-                mainVM.insertHabit(habit)
+                formViewModel.insertHabit(habit)
                 navController.popBackStack()
             }
         }
