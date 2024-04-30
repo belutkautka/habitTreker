@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
 import com.application.hw2.db.HabitRepository
 import com.application.hw2.model.HabitModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainVM(application: Application) : AndroidViewModel(application) {
@@ -14,16 +13,9 @@ class MainVM(application: Application) : AndroidViewModel(application) {
     private val habitsDao = appDatabase.habitsDao()
     private val repository: HabitRepository = HabitRepository(habitsDao)
 
-
-    fun addHabit(habit: HabitModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun insertHabit(habit: HabitModel) {
+        viewModelScope.launch {
             repository.insert(habit)
-        }
-    }
-
-    fun updateHabit(habit: HabitModel) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.update(habit)
         }
     }
 }

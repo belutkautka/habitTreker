@@ -4,9 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
 import com.application.hw2.db.HabitRepository
 import com.application.hw2.model.HabitModel
+import kotlinx.coroutines.launch
 
 class FilterVM(application: Application) : AndroidViewModel(application) {
     private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
@@ -19,21 +21,14 @@ class FilterVM(application: Application) : AndroidViewModel(application) {
     val habits: LiveData<List<HabitModel>> = _habits
 
     fun sortByPriority(desc: Boolean) {
-        if (_habits.value!!.isEmpty())
-            return
-        if (!desc) {
-            val sortedList = repository.allHabits.value?.sortedBy { it.name }
-
-            _habits.value = sortedList
-        } else {
-            val sortedList = repository.allHabits.value?.sortedByDescending { it.name }
-            _habits.value = sortedList
+        viewModelScope.launch {
+            _habits.value = repository.getHabitsSortedByPriority(desc)
         }
     }
 
     fun searchHabits(name: String) {
-        val filteredList =
-            repository.allHabits.value?.filter { it.name.contains(name, ignoreCase = true) }
-        _habits.value = filteredList
+        viewModelScope.launch {
+            _habits.value = repository.getHabitsFilteredByName(name)
+        }
     }
 }

@@ -32,7 +32,6 @@ class FormFragment : Fragment() {
     private var defaultColor: Int = 0
     private var startColor: Int = 0
     private var endColor: Int = 0
-    private var changed: Boolean = false
     private var type: Int = 1
     private var habitToEdit: HabitModel? = null
 
@@ -76,9 +75,7 @@ class FormFragment : Fragment() {
             }
         }
 
-        changed = false
         if (habitToEdit != null) {
-            changed = true
             setHabitData(
                 name, period, count, description, priority, habitToEdit!!,
                 submitButton, typeGroup, currentColor
@@ -140,17 +137,16 @@ class FormFragment : Fragment() {
                     && validateEditView(count) && validateEditView(period)
             if (isValidate) {
                 val habit = HabitModel(
-                    habitToEdit?.id,
-                    name.text.toString(), description.text.toString(),
-                    priority.selectedItem.toString().toInt(),
-                    type, count.text.toString().toInt(), period.text.toString()
+                    id = habitToEdit?.id,
+                    name = name.text.toString(),
+                    description = description.text.toString(),
+                    priority = priority.selectedItem.toString().toInt(),
+                    type = type,
+                    count = count.text.toString().toInt(),
+                    periodicity = period.text.toString(),
+                    color = getBackgroundColor(currentColor)
                 )
-                habit.color = getBackgroundColor(currentColor)
-                if (changed) {
-                    mainVM.updateHabit(habit)
-                } else {
-                    mainVM.addHabit(habit)
-                }
+                mainVM.insertHabit(habit)
                 navController.popBackStack()
             }
         }
