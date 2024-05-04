@@ -14,14 +14,14 @@ import com.application.hw2.R
 import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
-import com.application.hw2.viewModels.MainVM
+import com.application.hw2.viewModels.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
-    private lateinit var viewModel: MainVM
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = HabitType.values()
@@ -41,12 +41,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         if (fragments.isEmpty()) {
             val fragmentGOOD = HabitFragment.newInstance()
             fragmentGOOD.arguments = Bundle().apply {
-                putSerializable(BUNDLE_KEY, HabitType.GOOD)
+                putInt(BUNDLE_KEY, 1)
             }
             fragments.add(fragmentGOOD)
             val fragmentBAD = HabitFragment.newInstance()
             fragmentBAD.arguments = Bundle().apply {
-                putSerializable(BUNDLE_KEY, HabitType.BAD)
+                putInt(BUNDLE_KEY, 0)
             }
             fragments.add(fragmentBAD)
         }
@@ -54,15 +54,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val bottomSheet = binding.bottomSheet.bottomSheetMainFragment;
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         // Установка высоты BottomSheet до первого TextView
-        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        bottomSheet.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 bottomSheet.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val textViewHeight =  binding.bottomSheet.findAndSortTextView.height
+                val textViewHeight = binding.bottomSheet.findAndSortTextView.height
                 bottomSheetBehavior.setPeekHeight(textViewHeight, false)
             }
         })
 
-        viewModel = ViewModelProvider(requireActivity())[MainVM::class.java]
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         return binding.root
     }
 
@@ -79,21 +80,22 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val upButton = binding.bottomSheet.up
         val downButton = binding.bottomSheet.down
         upButton.setOnClickListener {
-            viewModel.sortByPriority(false)
+            mainViewModel.sortByPriority(false)
         }
         downButton.setOnClickListener {
-            viewModel.sortByPriority(true)
+            mainViewModel.sortByPriority(true)
         }
 
         binding.bottomSheet.find.setOnClickListener {
-            viewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
+            mainViewModel.searchHabits(binding.bottomSheet.searchName.text.toString())
         }
 
         viewPager = binding.MainViewPager
         val pagerAdapter = MainPagerAdapter(this, fragments)
         viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tab, viewPager) { tab, pos ->
-            tab.text = tabTitle[pos].toString() }.attach()
+            tab.text = tabTitle[pos].toString()
+        }.attach()
     }
 
     companion object {
