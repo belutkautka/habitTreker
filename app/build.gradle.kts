@@ -55,4 +55,7 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.0-alpha01")
     implementation("androidx.room:room-ktx:2.6.0-alpha01")
     kapt("android.arch.persistence.room:compiler:1.1.1")
+    //Api
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup.retrofit2:converter-gson:2.7.2")
 }

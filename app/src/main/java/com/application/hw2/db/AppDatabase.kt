@@ -8,7 +8,6 @@ import androidx.room.TypeConverters
 import com.application.hw2.model.HabitModel
 
 @Database(entities = [HabitModel::class], version = AppDatabase.VERSION)
-//@TypeConverters(HabitModel.ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun habitsDao(): HabitsDao

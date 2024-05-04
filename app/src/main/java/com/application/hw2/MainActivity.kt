@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.application.hw2.databinding.ActivityMainBinding
+import com.application.hw2.db.AppDatabase
 import com.application.hw2.viewModels.MainViewModel
 import com.application.hw2.viewModels.FormViewModel
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        this.deleteDatabase(AppDatabase.DB_NAME)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

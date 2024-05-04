@@ -5,11 +5,11 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.UUID
 
 @Entity("habit_table")
 data class HabitModel(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int?,
+    @PrimaryKey val id: UUID = UUID.randomUUID(),
     val name: String,
     val description: String,
     val priority: Int,

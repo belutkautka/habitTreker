@@ -137,7 +137,6 @@ class FormFragment : Fragment() {
                     && validateEditView(count) && validateEditView(period)
             if (isValidate) {
                 val habit = HabitModel(
-                    id = habitToEdit?.id,
                     name = name.text.toString(),
                     description = description.text.toString(),
                     priority = priority.selectedItem.toString().toInt(),
