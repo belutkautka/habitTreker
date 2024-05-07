@@ -2,6 +2,7 @@ package com.application.hw2.fragments
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,8 @@ import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.enums.HabitType
 import com.application.hw2.model.HabitModel
 import com.application.hw2.viewModels.FormViewModel
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
 class FormFragment : Fragment() {
     private var _binding: FormFragmentBinding? = null
@@ -49,6 +53,7 @@ class FormFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val submitButton = binding.add
@@ -58,12 +63,11 @@ class FormFragment : Fragment() {
         val typeGroup = binding.radioGroup
         val currentColor = binding.currentColor
         val count = binding.editCount
-        val period = binding.editPeriod
 
         habitToEdit = FormFragmentArgs.fromBundle(requireArguments()).habitToEdit
 
         initColor(currentColor)
-        initButton(submitButton, name, period, count, description, priority, currentColor)
+        initButton(submitButton, name, count, description, priority, currentColor)
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
             if (checkedRadioButton != null && checkedRadioButton.isChecked) {
@@ -77,9 +81,8 @@ class FormFragment : Fragment() {
 
         if (habitToEdit != null) {
             setHabitData(
-                name, period, count, description, priority, habitToEdit!!,
-                submitButton, typeGroup, currentColor
-            )
+                name, count, description, priority, habitToEdit!!,
+                submitButton, typeGroup, currentColor)
         } else {
             submitButton.text = resources.getText(R.string.add, null)
         }
@@ -87,14 +90,13 @@ class FormFragment : Fragment() {
     }
 
     fun setHabitData(
-        name: EditText, period: EditText, count: EditText, description: EditText, priority: Spinner,
+        name: EditText, count: EditText, description: EditText, priority: Spinner,
         changedHabit: HabitModel, submitButton: Button, typeGroup: RadioGroup, curentColor: View
     ) {
         name.setText(changedHabit.name, TextView.BufferType.EDITABLE)
         description.setText(changedHabit.description, TextView.BufferType.EDITABLE)
         priority.setSelection(changedHabit.priority - 1)
-        count.setText(changedHabit.count.toString(), TextView.BufferType.EDITABLE)
-        period.setText(changedHabit.periodicity, TextView.BufferType.EDITABLE)
+        count.setText(changedHabit.getCountFromDoneDates().toString(), TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
             if (view is RadioButton && ((view.text == HabitType.GOOD.name&&changedHabit.type==1)||
@@ -128,23 +130,30 @@ class FormFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initButton(
-        submitButton: Button, name: EditText, period: EditText, count: EditText,
+        submitButton: Button, name: EditText, count: EditText,
         description: EditText, priority: Spinner, currentColor: View
     ) {
         submitButton.setOnClickListener {
             val isValidate = validateEditView(name) && validateEditView(description)
-                    && validateEditView(count) && validateEditView(period)
+                    && validateEditView(count)
             if (isValidate) {
                 val habit = HabitModel(
                     name = name.text.toString(),
                     description = description.text.toString(),
                     priority = priority.selectedItem.toString().toInt(),
                     type = type,
-                    count = count.text.toString().toInt(),
-                    periodicity = period.text.toString(),
-                    color = getBackgroundColor(currentColor)
+                    count = 0,
+                    periodicity = count.text.toString().toInt(),
+                    color = getBackgroundColor(currentColor),
+                    date = OffsetDateTime.now(ZoneOffset.UTC).toEpochSecond().toInt(),
+                    doneDates = mutableListOf()
                 )
+                if(habitToEdit!=null){
+                    habit.id = habitToEdit!!.id
+                    habit.count = habitToEdit!!.count
+                }
                 formViewModel.insertHabit(habit)
                 navController.popBackStack()
             }

@@ -20,8 +20,8 @@
     <string name="editName">Введите название привычки</string>
     <string name="description">Описание</string>
     <string name="editDescription">Введите описание привычки</string>
-    <string name="period">Период</string>
-    <string name="in"> в </string>
+    <string name="period">Количество повторений</string>
+    <string name="in"> из </string>
     <string name="editPeriod">день</string>
     <string name="priotity">Срочность</string>
     <string name="type">Тип</string>
