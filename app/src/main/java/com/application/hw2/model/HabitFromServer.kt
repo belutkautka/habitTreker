@@ -6,7 +6,7 @@ import java.io.Serializable
 import java.lang.reflect.Type
 
 data class HabitFromServer(
-    var uid : String,
+    var uid : String?,
     var title: String,
     var description: String,
     var priority: Int,
