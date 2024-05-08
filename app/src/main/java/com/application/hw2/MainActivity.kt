@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.deleteDatabase(AppDatabase.DB_NAME)
+//        this.deleteDatabase(AppDatabase.DB_NAME)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

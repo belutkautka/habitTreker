@@ -2,20 +2,20 @@ package com.application.hw2.model
 
 class HabitConverter {
     companion object{
-//    fun HabitFromServerToHabit(habitFromServer: HabitFromServer): HabitModel {
-//        return HabitModel(
-//            id = habitFromServer.uid,
-//            name = habitFromServer.title,
-//            description = habitFromServer.description,
-//            priority = habitFromServer.priority,
-//            type = habitFromServer.type,
-//            count = habitFromServer.count,
-//            periodicity = habitFromServer.frequency,
-//            color = habitFromServer.color,
-//            date = habitFromServer.date,
-//            doneDates = habitFromServer.doneDates
-//        )
-//    }
+    fun HabitFromServerToHabit(habitFromServer: HabitFromServer): HabitModel {
+        return HabitModel(
+            id = habitFromServer.uid.toString(),
+            name = habitFromServer.title,
+            description = habitFromServer.description,
+            priority = habitFromServer.priority,
+            type = habitFromServer.type,
+            count = habitFromServer.count,
+            periodicity = habitFromServer.frequency,
+            color = habitFromServer.color,
+            date = habitFromServer.date,
+            doneDates = habitFromServer.doneDates
+        )
+    }
 
     fun HabitToHabitFromServer(habit: HabitModel): HabitFromServer {
         return HabitFromServer(

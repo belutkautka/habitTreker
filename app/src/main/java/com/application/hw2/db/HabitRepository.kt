@@ -8,9 +8,19 @@ import com.application.hw2.model.HabitModel
 import com.google.gson.Gson
 
 class HabitRepository(private val habitDao: HabitsDao) {
-    val allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
+    var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
     private val api: ApiService = ApiService.create()
     data class ResponseUid(val uid: String)
+
+    suspend fun initFromApi(){
+        val habitsFromApi = api.getHabits()
+        habitsFromApi.forEach{habitFromServer->
+            val habit = HabitConverter.HabitFromServerToHabit(habitFromServer)
+            if (!allHabits.value!!.contains(habit)){
+                habitDao.insertHabit(habit)
+            }
+        }
+    }
 
     suspend fun insert(habit: HabitModel, new: Boolean = true) {
         val habitToServer = HabitConverter.HabitToHabitFromServer(habit)

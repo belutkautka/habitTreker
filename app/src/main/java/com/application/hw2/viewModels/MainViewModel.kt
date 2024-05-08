@@ -20,6 +20,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
     val habits: LiveData<List<HabitModel>> = _habits
 
+    init {
+        viewModelScope.launch {
+            repository.initFromApi()
+        }
+    }
+
     fun sortByPriority(desc: Boolean) {
         viewModelScope.launch {
             _habits.value = repository.getHabitsSortedByPriority(desc)
