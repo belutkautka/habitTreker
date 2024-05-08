@@ -1,5 +1,6 @@
 package com.application.hw2.db
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.application.hw2.api.ApiService
 import com.application.hw2.model.HabitConverter
@@ -18,7 +19,7 @@ class HabitRepository(private val habitDao: HabitsDao) {
             habitToServer.uid = null
         }
         val response = api.putHabit(habitToServer)
-        if (response.isSuccessful) {
+        if (response.isSuccessful and new) {
             val responseBody = response.body()?.string()
             val gson = Gson()
             val responseUid = gson.fromJson(responseBody, ResponseUid::class.java)
@@ -26,8 +27,8 @@ class HabitRepository(private val habitDao: HabitsDao) {
         } else {
             // Обработка ошибки при выполнении запроса
         }
+        Log.d("habit", habit.toString())
         habitDao.insertHabit(habit)
-
     }
 
     suspend fun getHabitsSortedByPriority(desc: Boolean): List<HabitModel> =

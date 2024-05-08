@@ -13,9 +13,9 @@ class FormViewModel(application: Application) : AndroidViewModel(application) {
     private val habitsDao = appDatabase.habitsDao()
     private val repository: HabitRepository = HabitRepository(habitsDao)
 
-    fun insertHabit(habit: HabitModel) {
+    fun insertHabit(habit: HabitModel, new: Boolean = true) {
         viewModelScope.launch {
-            repository.insert(habit)
+            repository.insert(habit, new)
         }
     }
 }

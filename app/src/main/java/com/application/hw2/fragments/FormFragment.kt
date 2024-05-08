@@ -71,9 +71,9 @@ class FormFragment : Fragment() {
         typeGroup.setOnCheckedChangeListener { group, checkedId ->
             val checkedRadioButton = typeGroup.findViewById<RadioButton>(checkedId)
             if (checkedRadioButton != null && checkedRadioButton.isChecked) {
-                type = if(checkedRadioButton.text.toString()==HabitType.GOOD.toString()){
+                type = if (checkedRadioButton.text.toString() == HabitType.GOOD.toString()) {
                     1
-                } else{
+                } else {
                     0
                 }
             }
@@ -82,7 +82,8 @@ class FormFragment : Fragment() {
         if (habitToEdit != null) {
             setHabitData(
                 name, count, description, priority, habitToEdit!!,
-                submitButton, typeGroup, currentColor)
+                submitButton, typeGroup, currentColor
+            )
         } else {
             submitButton.text = resources.getText(R.string.add, null)
         }
@@ -99,8 +100,9 @@ class FormFragment : Fragment() {
         count.setText(changedHabit.getCountFromDoneDates().toString(), TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
-            if (view is RadioButton && ((view.text == HabitType.GOOD.name&&changedHabit.type==1)||
-                (view.text == HabitType.BAD.name&&changedHabit.type==0))) {
+            if (view is RadioButton && ((view.text == HabitType.GOOD.name && changedHabit.type == 1) ||
+                        (view.text == HabitType.BAD.name && changedHabit.type == 0))
+            ) {
                 view.isChecked = true
                 return@forEach
             }
@@ -144,17 +146,15 @@ class FormFragment : Fragment() {
                     description = description.text.toString(),
                     priority = priority.selectedItem.toString().toInt(),
                     type = type,
-                    count = 0,
                     periodicity = count.text.toString().toInt(),
                     color = getBackgroundColor(currentColor),
                     date = OffsetDateTime.now(ZoneOffset.UTC).toEpochSecond().toInt(),
                     doneDates = mutableListOf()
                 )
-                if(habitToEdit!=null){
+                if (habitToEdit != null) {
                     habit.id = habitToEdit!!.id
-                    habit.count = habitToEdit!!.count
                 }
-                formViewModel.insertHabit(habit)
+                formViewModel.insertHabit(habit, habitToEdit == null)
                 navController.popBackStack()
             }
         }
