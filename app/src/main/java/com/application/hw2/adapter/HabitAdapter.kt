@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 import com.application.hw2.model.HabitModel
 
-class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit) :
+class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit, val onHabitDeleteClickListener: (HabitModel) -> Unit) :
     ListAdapter<HabitModel, HabitAdapter.HabitViewHolder>(MyItemDiffCallback()) {
 
     class HabitViewHolder(val binding: ItemHabitLayoutBinding) : ViewHolder(binding.root)
@@ -42,6 +42,9 @@ class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit) :
         holder.itemView.setBackgroundColor(habit.color)
         holder.itemView.setOnClickListener {
             onHabitClickListener(habit)
+        }
+        holder.binding.delete.setOnClickListener{
+            onHabitDeleteClickListener(habit)
         }
     }
 }

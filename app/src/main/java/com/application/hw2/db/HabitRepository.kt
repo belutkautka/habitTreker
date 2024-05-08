@@ -3,6 +3,7 @@ package com.application.hw2.db
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.application.hw2.api.ApiService
+import com.application.hw2.api.ResponseUid
 import com.application.hw2.model.HabitConverter
 import com.application.hw2.model.HabitModel
 import com.google.gson.Gson
@@ -10,22 +11,25 @@ import com.google.gson.Gson
 class HabitRepository(private val habitDao: HabitsDao) {
     var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
     private val api: ApiService = ApiService.create()
-    data class ResponseUid(val uid: String)
 
-    suspend fun initFromApi(){
+    suspend fun initFromApi() {
         val habitsFromApi = api.getHabits()
-        habitsFromApi.forEach{habitFromServer->
+        habitsFromApi.forEach { habitFromServer ->
             val habit = HabitConverter.HabitFromServerToHabit(habitFromServer)
-            if (!allHabits.value!!.contains(habit)){
+            if (!allHabits.value!!.contains(habit)) {
                 habitDao.insertHabit(habit)
             }
         }
     }
 
+    suspend fun delete(habit: HabitModel) {
+        api.deleteHabit(ResponseUid(habit.id))
+        habitDao.deleteHabit(habit)
+    }
+
     suspend fun insert(habit: HabitModel, new: Boolean = true) {
         val habitToServer = HabitConverter.HabitToHabitFromServer(habit)
-        if (new)
-        {
+        if (new) {
             habitToServer.uid = null
         }
         val response = api.putHabit(habitToServer)
@@ -46,6 +50,7 @@ class HabitRepository(private val habitDao: HabitsDao) {
 
     suspend fun getHabitsFilteredByName(name: String): List<HabitModel> =
         habitDao.getHabitsFilteredByName(name)
+
     suspend fun getHabitsFromApi() =
         api.getHabits()
 }

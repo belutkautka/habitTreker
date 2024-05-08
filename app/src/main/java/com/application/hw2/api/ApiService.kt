@@ -24,6 +24,11 @@ interface ApiService {
         @Body habit: HabitFromServer
     ): Response<ResponseBody>
 
+    @HTTP(method = "DELETE", path = "api/habit", hasBody = true)
+    suspend fun deleteHabit(
+        @Body uid: ResponseUid
+    )
+
     companion object Factory {
 
         const val API_BASE_URL = "https://droid-test-server.doubletapp.ru/"

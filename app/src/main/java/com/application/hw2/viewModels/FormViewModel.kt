@@ -18,4 +18,10 @@ class FormViewModel(application: Application) : AndroidViewModel(application) {
             repository.insert(habit, new)
         }
     }
+
+    fun deleteHabit(habit: HabitModel){
+        viewModelScope.launch {
+            repository.delete(habit)
+        }
+    }
 }

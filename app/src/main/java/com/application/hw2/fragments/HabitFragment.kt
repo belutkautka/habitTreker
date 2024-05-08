@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.application.hw2.R
 import com.application.hw2.adapter.HabitAdapter
 import com.application.hw2.databinding.HabitFragmentBinding
+import com.application.hw2.viewModels.FormViewModel
 import com.application.hw2.viewModels.MainViewModel
 
 class HabitFragment : Fragment() {
@@ -18,6 +19,7 @@ class HabitFragment : Fragment() {
     private val binding get() = _binding!!
     private var habitType: Int = 0
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var formViewModel: FormViewModel
 
     private lateinit var adapter: HabitAdapter
     private lateinit var recyclerView: RecyclerView
@@ -38,6 +40,7 @@ class HabitFragment : Fragment() {
         _binding = HabitFragmentBinding.inflate(inflater, container, false)
 
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        formViewModel = ViewModelProvider(requireActivity())[FormViewModel::class.java]
         return binding.root
     }
 
@@ -53,6 +56,8 @@ class HabitFragment : Fragment() {
             action.habitToEdit = habit
             action.label = getString(R.string.label_edit)
             Navigation.findNavController(requireView()).navigate(action)
+        }, onHabitDeleteClickListener = { habit ->
+            formViewModel.deleteHabit(habit)
         })
 
         recyclerView.adapter = adapter
