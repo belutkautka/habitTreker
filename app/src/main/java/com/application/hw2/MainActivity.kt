@@ -1,6 +1,7 @@
 package com.application.hw2
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -11,6 +12,7 @@ import com.application.hw2.databinding.ActivityMainBinding
 import com.application.hw2.db.AppDatabase
 import com.application.hw2.viewModels.MainViewModel
 import com.application.hw2.viewModels.FormViewModel
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -46,5 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(FormViewModel::class.java)
         filterViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val avatarImageView: CircleImageView = binding.navigationView.getHeaderView(0)
+            .findViewById(R.id.avatarImageView)
+        AvatarLoader.loadAvatar(avatarImageView)
     }
 }

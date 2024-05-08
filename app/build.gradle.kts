@@ -59,4 +59,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.squareup.retrofit2:converter-gson:2.7.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    //ImageLoader
+    implementation("com.squareup.picasso:picasso:2.5.2")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
