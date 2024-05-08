@@ -1,12 +1,17 @@
 package com.application.hw2.db
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.application.hw2.api.ApiService
+import com.application.hw2.api.RequestDone
 import com.application.hw2.api.ResponseUid
 import com.application.hw2.model.HabitConverter
 import com.application.hw2.model.HabitModel
 import com.google.gson.Gson
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 
 class HabitRepository(private val habitDao: HabitsDao) {
     var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
@@ -20,6 +25,14 @@ class HabitRepository(private val habitDao: HabitsDao) {
                 habitDao.insertHabit(habit)
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun habitDone(habit: HabitModel){
+        val date = OffsetDateTime.now(ZoneOffset.UTC).toEpochSecond().toInt()
+        api.postHabitDone(RequestDone(date,habit.id))
+        habit.doneDates.add(date)
+        habitDao.insertHabit(habit)
     }
 
     suspend fun delete(habit: HabitModel) {

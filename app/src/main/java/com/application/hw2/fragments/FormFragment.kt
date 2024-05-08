@@ -97,7 +97,7 @@ class FormFragment : Fragment() {
         name.setText(changedHabit.name, TextView.BufferType.EDITABLE)
         description.setText(changedHabit.description, TextView.BufferType.EDITABLE)
         priority.setSelection(changedHabit.priority - 1)
-        count.setText(changedHabit.getCountFromDoneDates().toString(), TextView.BufferType.EDITABLE)
+        count.setText(changedHabit.periodicity.toString(), TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
             if (view is RadioButton && ((view.text == HabitType.GOOD.name && changedHabit.type == 1) ||
@@ -153,6 +153,7 @@ class FormFragment : Fragment() {
                 )
                 if (habitToEdit != null) {
                     habit.id = habitToEdit!!.id
+                    habit.doneDates = habitToEdit!!.doneDates
                 }
                 formViewModel.insertHabit(habit, habitToEdit == null)
                 navController.popBackStack()

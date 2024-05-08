@@ -44,7 +44,7 @@ class LongListTypeConverter {
     @TypeConverter
     fun fromString(value: String): List<Int> {
         if (value.isEmpty()) {
-            return emptyList()
+            return mutableListOf<Int>()
         }
         return value.split(",").map { it.toInt() }
     }

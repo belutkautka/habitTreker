@@ -1,6 +1,8 @@
 package com.application.hw2.viewModels
 
 import android.app.Application
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
@@ -22,6 +24,13 @@ class FormViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteHabit(habit: HabitModel){
         viewModelScope.launch {
             repository.delete(habit)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun habitDone(habit: HabitModel){
+        viewModelScope.launch {
+            repository.habitDone(habit)
         }
     }
 }

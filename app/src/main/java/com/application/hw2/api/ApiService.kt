@@ -29,6 +29,11 @@ interface ApiService {
         @Body uid: ResponseUid
     )
 
+    @POST("api/habit_done")
+    suspend fun postHabitDone(
+        @Body postDone: RequestDone
+    )
+
     companion object Factory {
 
         const val API_BASE_URL = "https://droid-test-server.doubletapp.ru/"
