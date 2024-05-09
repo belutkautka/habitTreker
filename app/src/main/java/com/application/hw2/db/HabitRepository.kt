@@ -10,6 +10,7 @@ import com.application.hw2.api.ResponseUid
 import com.application.hw2.model.HabitConverter
 import com.application.hw2.model.HabitModel
 import com.google.gson.Gson
+import retrofit2.awaitResponse
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
@@ -17,9 +18,10 @@ class HabitRepository(private val habitDao: HabitsDao) {
     var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
     private val api: ApiService = ApiService.create()
 
+
     suspend fun initFromApi() {
-        val habitsFromApi = api.getHabits()
-        habitsFromApi.forEach { habitFromServer ->
+        val habitsFromApi = api.getHabits().awaitResponse().body()
+        habitsFromApi?.forEach { habitFromServer ->
             val habit = HabitConverter.HabitFromServerToHabit(habitFromServer)
             if (!allHabits.value!!.contains(habit)) {
                 habitDao.insertHabit(habit)
@@ -45,9 +47,9 @@ class HabitRepository(private val habitDao: HabitsDao) {
         if (new) {
             habitToServer.uid = null
         }
-        val response = api.putHabit(habitToServer)
+        val response = api.putHabit(habitToServer).awaitResponse()
         if (response.isSuccessful and new) {
-            val responseBody = response.body()?.string()
+            val responseBody = response.body().toString()
             val gson = Gson()
             val responseUid = gson.fromJson(responseBody, ResponseUid::class.java)
             habit.id = responseUid.uid

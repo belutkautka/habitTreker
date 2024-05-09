@@ -57,8 +57,10 @@ dependencies {
     kapt("android.arch.persistence.room:compiler:1.1.1")
     //Api
     implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.7.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     //ImageLoader
     implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("de.hdodenhof:circleimageview:3.1.0")
