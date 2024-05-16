@@ -1,4 +1,4 @@
-package com.application.hw2.db
+package com.application.hw2.repository
 
 import android.os.Build
 import android.util.Log
@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import com.application.hw2.api.ApiService
 import com.application.hw2.api.RequestDone
 import com.application.hw2.api.ResponseUid
+import com.application.hw2.db.HabitsDao
 import com.application.hw2.model.HabitConverter
 import com.application.hw2.model.HabitModel
 import com.google.gson.Gson
