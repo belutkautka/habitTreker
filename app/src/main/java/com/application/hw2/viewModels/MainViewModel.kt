@@ -22,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         viewModelScope.launch {
-            repository.initFromApi()
+            repository.init()
         }
     }
 

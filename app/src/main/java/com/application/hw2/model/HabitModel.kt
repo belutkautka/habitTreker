@@ -22,7 +22,7 @@ data class HabitModel(
     var doneDates: MutableList<Int>
 ) : Serializable {
     @Ignore
-    private val starsCount = 5
+    private val starsCount = 3
 
     @Ignore
     val period: String = convertToPeriod()
@@ -32,7 +32,7 @@ data class HabitModel(
     }
 
     fun getStars(): String {
-        return "${"★".repeat(priority)}${"☆".repeat(starsCount - priority)}"
+        return "${"★".repeat(priority+1)}${"☆".repeat(starsCount - priority-1)}"
     }
 
     fun getCountFromDoneDates(): Int {

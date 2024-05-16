@@ -18,7 +18,7 @@ class HabitRepository(private val habitDao: HabitsDao) {
     var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
     private val api: ApiService = ApiService.create()
 
-    suspend fun initFromApi() {
+    suspend fun init() {
         val habitsFromApi = api.getHabits()
         habitsFromApi.forEach { habitFromServer ->
             val habit = HabitConverter.HabitFromServerToHabit(habitFromServer)
@@ -26,7 +26,16 @@ class HabitRepository(private val habitDao: HabitsDao) {
                 habitDao.insertHabit(habit)
             }
         }
+
+        allHabits.value!!.forEach{habit ->
+            val habitFromServer = HabitConverter.HabitToHabitFromServer(habit)
+            if (!habitsFromApi.contains(habitFromServer)){
+                habitDao.deleteHabit(habit)
+                insert(habit)
+            }
+        }
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun habitDone(habit: HabitModel){

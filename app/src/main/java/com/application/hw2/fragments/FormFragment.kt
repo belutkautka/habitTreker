@@ -96,7 +96,7 @@ class FormFragment : Fragment() {
     ) {
         name.setText(changedHabit.name, TextView.BufferType.EDITABLE)
         description.setText(changedHabit.description, TextView.BufferType.EDITABLE)
-        priority.setSelection(changedHabit.priority - 1)
+        priority.setSelection(changedHabit.priority)
         count.setText(changedHabit.periodicity.toString(), TextView.BufferType.EDITABLE)
         submitButton.setText(resources.getText(R.string.save, null))
         typeGroup.forEach { view ->
@@ -144,7 +144,7 @@ class FormFragment : Fragment() {
                 val habit = HabitModel(
                     name = name.text.toString(),
                     description = description.text.toString(),
-                    priority = priority.selectedItem.toString().toInt(),
+                    priority = priority.selectedItem.toString().toInt()-1,
                     type = type,
                     periodicity = count.text.toString().toInt(),
                     color = getBackgroundColor(currentColor),
