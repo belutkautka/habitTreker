@@ -37,6 +37,7 @@ interface ApiService {
     companion object Factory {
 
         const val API_BASE_URL = "https://droid-test-server.doubletapp.ru/"
+//        const val API_BASE_URL = "https://droid-test-server.doubletapp.ru/test/"
         const val CONTENT_TYPE = "application/json"
         const val API_KEY = "f11649ac-44a0-41e2-bcc2-da1bbcf68b64"
 
@@ -46,6 +47,7 @@ interface ApiService {
                 .addInterceptor(HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
+                .addInterceptor(RetryingInterceptor())
                 .addInterceptor { chain ->
                     chain.proceed(chain.request().newBuilder()
                         .addHeader("accept", CONTENT_TYPE)
