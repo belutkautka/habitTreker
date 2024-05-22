@@ -28,16 +28,15 @@ data class HabitModel(
     val period: String = convertToPeriod()
 
     private fun convertToPeriod(): String {
-        return "${getCountFromDoneDates()} из $periodicity"
+        return "$countFromDoneDates из $periodicity"
     }
 
-    fun getStars(): String {
-        return "${"★".repeat(priority+1)}${"☆".repeat(starsCount - priority-1)}"
-    }
+    val stars: String
+        get() = "${"★".repeat(priority + 1)}${"☆".repeat(starsCount - priority - 1)}"
 
-    fun getCountFromDoneDates(): Int {
-        return doneDates.size
-    }
+    private val countFromDoneDates: Int
+        get() = doneDates.size
+
 }
 
 class LongListTypeConverter {
