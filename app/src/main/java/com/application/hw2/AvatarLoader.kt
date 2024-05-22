@@ -9,8 +9,7 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
 import de.hdodenhof.circleimageview.CircleImageView
 
-class AvatarLoader {
-    companion object{
+object AvatarLoader {
     fun loadAvatar(imageView: CircleImageView) {
         Picasso
             .with(imageView.context)
@@ -20,11 +19,7 @@ class AvatarLoader {
             .transform(CircleTransform())
             .into(imageView)
     }
-    }
 }
-
-
-
 
 // Класс для преобразования изображения в круглую форму
 class CircleTransform : Transformation {
