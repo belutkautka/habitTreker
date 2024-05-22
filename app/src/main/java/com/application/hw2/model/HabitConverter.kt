@@ -1,5 +1,6 @@
 package com.application.hw2.model
 
+//extention функция*
 class HabitConverter {
     companion object{
     fun HabitFromServerToHabit(habitFromServer: HabitFromServer): HabitModel {

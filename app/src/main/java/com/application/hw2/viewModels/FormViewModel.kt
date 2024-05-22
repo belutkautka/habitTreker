@@ -1,13 +1,11 @@
 package com.application.hw2.viewModels
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.application.hw2.db.AppDatabase
-import com.application.hw2.repository.HabitRepository
 import com.application.hw2.model.HabitModel
+import com.application.hw2.repository.HabitRepository
 import kotlinx.coroutines.launch
 
 class FormViewModel(application: Application) : AndroidViewModel(application) {
@@ -27,7 +25,6 @@ class FormViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun habitDone(habit: HabitModel){
         viewModelScope.launch {
             repository.habitDone(habit)

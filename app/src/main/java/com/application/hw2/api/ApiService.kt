@@ -1,7 +1,6 @@
 package com.application.hw2.api
 
 
-import android.util.Log
 import com.application.hw2.model.HabitFromServer
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

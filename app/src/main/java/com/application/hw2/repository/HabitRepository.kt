@@ -15,7 +15,7 @@ import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
 class HabitRepository(private val habitDao: HabitsDao) {
-    var allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
+    val allHabits: LiveData<List<HabitModel>> = habitDao.getAllHabits()
     private val api: ApiService = ApiService.create()
 
     suspend fun init() {
@@ -36,8 +36,6 @@ class HabitRepository(private val habitDao: HabitsDao) {
         }
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     suspend fun habitDone(habit: HabitModel){
         val date = OffsetDateTime.now(ZoneOffset.UTC).toEpochSecond().toInt()
         api.postHabitDone(RequestDone(date,habit.id))
@@ -56,7 +54,7 @@ class HabitRepository(private val habitDao: HabitsDao) {
             habitToServer.uid = null
         }
         val response = api.putHabit(habitToServer)
-        if (response.isSuccessful and new) {
+        if (response.isSuccessful && new) {
             val responseBody = response.body()?.string()
             val gson = Gson()
             val responseUid = gson.fromJson(responseBody, ResponseUid::class.java)

@@ -21,7 +21,7 @@ class RetryingInterceptor(private val tryCnt: Int = 3, private val baseInterval:
             }
             return response
         } catch (e: Exception) {
-            Log.d("error",e.toString())
+            Log.e("error",e.toString())
             throw e
         }
     }
