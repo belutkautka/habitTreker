@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.application.hw2"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -55,4 +55,11 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.0-alpha01")
     implementation("androidx.room:room-ktx:2.6.0-alpha01")
     kapt("android.arch.persistence.room:compiler:1.1.1")
+    //Api
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup.retrofit2:converter-gson:2.7.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    //ImageLoader
+    implementation("com.squareup.picasso:picasso:2.5.2")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

@@ -2,13 +2,16 @@ package com.application.hw2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ExpandableListView.OnChildClickListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 import com.application.hw2.model.HabitModel
 
-class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit) :
+class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit,
+                   val onHabitDeleteClickListener: (HabitModel) -> Unit,
+                   val onHabitDoneClickListener:  (HabitModel) -> Unit) :
     ListAdapter<HabitModel, HabitAdapter.HabitViewHolder>(MyItemDiffCallback()) {
 
     class HabitViewHolder(val binding: ItemHabitLayoutBinding) : ViewHolder(binding.root)
@@ -38,10 +41,16 @@ class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit) :
         holder.binding.name.text = habit.name
         holder.binding.description.text = habit.description
         holder.binding.period.text = habit.period
-        holder.binding.priority.text = habit.getStars()
+        holder.binding.priority.text = habit.stars
         holder.itemView.setBackgroundColor(habit.color)
         holder.itemView.setOnClickListener {
             onHabitClickListener(habit)
+        }
+        holder.binding.delete.setOnClickListener{
+            onHabitDeleteClickListener(habit)
+        }
+        holder.binding.add.setOnClickListener{
+            onHabitDoneClickListener(habit)
         }
     }
 }
