@@ -13,12 +13,11 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.application.data.model.HabitModel
+import com.application.domain.useCases.model.HabitModel
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding

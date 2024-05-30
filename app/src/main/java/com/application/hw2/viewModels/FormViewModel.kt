@@ -3,8 +3,8 @@ package com.application.hw2.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.application.data.model.HabitModel
 import com.application.domain.useCases.HabitUseCases
+import com.application.domain.useCases.model.HabitModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

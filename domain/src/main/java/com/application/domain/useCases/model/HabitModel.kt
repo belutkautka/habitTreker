@@ -1,4 +1,4 @@
-package com.application.data.model
+package com.application.domain.useCases.model
 
 import android.graphics.Color
 import androidx.room.Entity

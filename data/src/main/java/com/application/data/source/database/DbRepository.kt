@@ -1,6 +1,7 @@
 package com.application.data.source.database
 
-import com.application.data.model.HabitModel
+import com.application.domain.useCases.model.HabitModel
+
 
 open class DbRepository(private val dao: HabitsDao) {
     suspend fun insertHabit(habit: HabitModel) = dao.insertHabit(habit)

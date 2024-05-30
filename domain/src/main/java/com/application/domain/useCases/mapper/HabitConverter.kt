@@ -1,4 +1,5 @@
-package com.application.data.mapper
+package com.application.domain.useCases.mapper
+
 import com.application.domain.useCases.model.HabitFromServer
 import com.application.domain.useCases.model.HabitModel
 

@@ -1,7 +1,7 @@
 package com.application.data.source.database
 
 import androidx.room.*;
-import com.application.data.model.HabitModel
+import com.application.domain.useCases.model.HabitModel
 
 
 @Dao

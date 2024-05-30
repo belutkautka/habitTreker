@@ -1,10 +1,10 @@
 package com.application.domain.useCases
 
 import android.util.Log
-import com.application.data.mapper.HabitConverter
-import com.application.data.model.HabitModel
-import com.application.data.model.RequestDone
-import com.application.data.model.ResponseUid
+import com.application.domain.useCases.mapper.HabitConverter
+import com.application.domain.useCases.model.HabitModel
+import com.application.domain.useCases.model.RequestDone
+import com.application.domain.useCases.model.ResponseUid
 import com.application.domain.useCases.repository.AppRepository
 import com.google.gson.Gson
 import java.time.OffsetDateTime

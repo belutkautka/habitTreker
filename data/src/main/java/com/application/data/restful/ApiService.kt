@@ -1,8 +1,8 @@
 package com.application.data.restful
 
-import com.application.data.model.HabitFromServer
-import com.application.data.model.RequestDone
-import com.application.data.model.ResponseUid
+import com.application.domain.useCases.model.HabitFromServer
+import com.application.domain.useCases.model.RequestDone
+import com.application.domain.useCases.model.ResponseUid
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody

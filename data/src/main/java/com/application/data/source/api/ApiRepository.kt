@@ -1,11 +1,9 @@
 package com.application.data.source.api
 
-import com.application.data.mapper.HabitConverter
-import com.application.data.model.HabitFromServer
-import com.application.data.model.HabitModel
-import com.application.data.model.RequestDone
-import com.application.data.model.ResponseUid
 import com.application.data.restful.ApiService
+import com.application.domain.useCases.model.HabitFromServer
+import com.application.domain.useCases.model.RequestDone
+import com.application.domain.useCases.model.ResponseUid
 
 open class ApiRepository(private val api: ApiService){
     suspend fun getHabits(): List<HabitFromServer> = api.getHabits()

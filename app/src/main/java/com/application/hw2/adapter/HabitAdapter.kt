@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.application.data.model.HabitModel
+import com.application.domain.useCases.model.HabitModel
 import com.application.hw2.databinding.ItemHabitLayoutBinding
 
 class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit,

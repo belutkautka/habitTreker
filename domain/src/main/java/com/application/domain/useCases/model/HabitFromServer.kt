@@ -1,4 +1,4 @@
-package com.application.data.model
+package com.application.domain.useCases.model
 
 import com.google.gson.*
 import com.google.gson.annotations.SerializedName

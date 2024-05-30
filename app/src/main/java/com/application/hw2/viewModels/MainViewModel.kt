@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.application.data.model.HabitModel
 import com.application.domain.useCases.HabitUseCases
+import com.application.domain.useCases.model.HabitModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
