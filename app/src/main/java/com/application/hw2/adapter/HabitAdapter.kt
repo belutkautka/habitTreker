@@ -2,12 +2,11 @@ package com.application.hw2.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ExpandableListView.OnChildClickListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.application.data.model.HabitModel
 import com.application.hw2.databinding.ItemHabitLayoutBinding
-import com.application.hw2.model.HabitModel
 
 class HabitAdapter(val onHabitClickListener: (HabitModel) -> Unit,
                    val onHabitDeleteClickListener: (HabitModel) -> Unit,

@@ -23,7 +23,7 @@
         android:label="{label}">
         <argument
             android:name="habitToEdit"
-            app:argType="com.application.hw2.model.HabitModel"
+            app:argType="com.application.data.model.HabitModel"
             app:nullable="true"
             android:defaultValue="@null" />
         <argument

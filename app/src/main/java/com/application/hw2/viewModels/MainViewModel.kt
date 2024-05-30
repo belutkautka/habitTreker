@@ -3,38 +3,36 @@ package com.application.hw2.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.application.hw2.db.AppDatabase
-import com.application.hw2.repository.HabitRepository
-import com.application.hw2.model.HabitModel
+import com.application.data.model.HabitModel
+import com.application.domain.useCases.HabitUseCases
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-    private val appDatabase = AppDatabase.getHabitsDatabase(getApplication())
-    private val habitsDao = appDatabase.habitsDao()
-    private val repository: HabitRepository = HabitRepository(habitsDao)
+class MainViewModel @Inject constructor(
+    private val repository: HabitUseCases,
+    application: Application) : AndroidViewModel(application) {
 
-    private val _habits = MediatorLiveData<List<HabitModel>>().apply {
-        addSource(repository.allHabits) { value = it }
-    }
-    val habits: LiveData<List<HabitModel>> = _habits
+    private val _habits: MutableLiveData<MutableList<HabitModel>> = MutableLiveData()
+    val habits: LiveData<MutableList<HabitModel>> get() = _habits
 
     init {
         viewModelScope.launch {
             repository.init()
+            _habits.postValue(repository.getAllHabitsFromDb().toMutableList())
         }
     }
 
     fun sortByPriority(desc: Boolean) {
-        viewModelScope.launch {
-            _habits.value = repository.getHabitsSortedByPriority(desc)
+        viewModelScope.launch() {
+            _habits.postValue(repository.getHabitsSortedByPriority(desc).toMutableList())
         }
     }
 
     fun searchHabits(name: String) {
         viewModelScope.launch {
-            _habits.value = repository.getHabitsFilteredByName(name)
+            _habits.postValue(repository.getHabitsFilteredByName(name).toMutableList())
         }
     }
 }

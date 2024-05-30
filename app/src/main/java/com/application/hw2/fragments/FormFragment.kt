@@ -14,22 +14,30 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.application.data.model.HabitModel
 import com.application.hw2.ColorPicker
 import com.application.hw2.R
 import com.application.hw2.databinding.FormFragmentBinding
 import com.application.hw2.enums.HabitType
-import com.application.hw2.model.HabitModel
 import com.application.hw2.viewModels.FormViewModel
+import dagger.android.support.DaggerFragment
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import javax.inject.Inject
 
-class FormFragment : Fragment() {
+class FormFragment : DaggerFragment(R.layout.form_fragment) {
     private var _binding: FormFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var formViewModel: FormViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val formViewModel: FormViewModel by viewModels({ requireParentFragment() }) {
+        viewModelFactory
+    }
 
     private var defaultColor: Int = 0
     private var startColor: Int = 0
@@ -47,7 +55,6 @@ class FormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FormFragmentBinding.inflate(inflater, container, false)
-        formViewModel = ViewModelProvider(requireActivity())[FormViewModel::class.java]
         return binding.root
     }
 

@@ -1,20 +1,18 @@
 package com.application.hw2
 
 import android.os.Bundle
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.application.hw2.databinding.ActivityMainBinding
-import com.application.hw2.db.AppDatabase
 import com.application.hw2.viewModels.MainViewModel
 import com.application.hw2.viewModels.FormViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     lateinit var navController: NavController

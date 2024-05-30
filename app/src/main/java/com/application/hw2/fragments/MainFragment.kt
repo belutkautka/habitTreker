@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -14,14 +14,16 @@ import com.application.hw2.R
 import com.application.hw2.adapter.MainPagerAdapter
 import com.application.hw2.databinding.MainFragmentBinding
 import com.application.hw2.enums.HabitType
+import com.application.hw2.viewModels.FormViewModel
 import com.application.hw2.viewModels.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class MainFragment : Fragment(R.layout.main_fragment) {
+class MainFragment : DaggerFragment(R.layout.main_fragment) {
     private lateinit var viewPager: ViewPager2
-    private lateinit var mainViewModel: MainViewModel
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val tabTitle = HabitType.values()
@@ -30,6 +32,17 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private val navController: NavController by lazy {
         Navigation.findNavController(requireView())
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val mainViewModel: MainViewModel by viewModels({ this }) {
+        viewModelFactory
+    }
+
+    private val formViewModel: FormViewModel by viewModels({ this }) {
+        viewModelFactory
     }
 
     override fun onCreateView(
@@ -63,7 +76,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             }
         })
 
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         return binding.root
     }
 
