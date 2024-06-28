@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "hw2"
 include(":app")
- 
+include(":data-module")
+include(":domain-module")
